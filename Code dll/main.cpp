@@ -1,4 +1,4 @@
-#define WIN32_LEAN_AND_MEAN
+﻿#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <cstdint>
 #include <cstring>
@@ -8,630 +8,295 @@
 #include <iomanip>
 #include "offsets.h"
 using namespace Offsets;
-typedef void* (*il2cpp_domain_get_t)();
-typedef void** (*il2cpp_domain_get_assemblies_t)(void*, size_t*);
-typedef void* (*il2cpp_assembly_get_image_t)(void*);
-typedef const char* (*il2cpp_image_get_name_t)(void*);
-typedef void* (*il2cpp_class_from_name_t)(void*, const char*, const char*);
-typedef void* (*il2cpp_class_get_field_from_name_t)(void*, const char*);
-typedef void (*il2cpp_field_static_get_value_t)(void*, void*);
-typedef void (*il2cpp_field_static_set_value_t)(void*, void*);
-typedef void* (*il2cpp_thread_attach_t)(void*);
-namespace Il2Cpp {
-inline uintptr_t Base = 0;
-inline il2cpp_domain_get_t domain_get = nullptr;
-inline il2cpp_domain_get_assemblies_t domain_get_assemblies = nullptr;
-inline il2cpp_assembly_get_image_t assembly_get_image = nullptr;
-inline il2cpp_image_get_name_t image_get_name = nullptr;
-inline il2cpp_class_from_name_t class_from_name = nullptr;
-inline il2cpp_class_get_field_from_name_t class_get_field = nullptr;
-inline il2cpp_field_static_get_value_t field_get = nullptr;
-inline il2cpp_field_static_set_value_t field_set = nullptr;
-inline il2cpp_thread_attach_t thread_attach = nullptr;
-inline void* GameImage = nullptr;
-template<typename T> T Read(uintptr_t a) { __try { return *(T*)a; } __except(1) { return T{}; } }
-template<typename T> void Write(uintptr_t a, T v) { __try { *(T*)a = v; } __except(1) {} }
-inline bool Valid(uintptr_t p) { __try { volatile char c = *(char*)p; (void)c; return p != 0; } __except(1) { return false; } }
-bool Init() {
-    HMODULE h = GetModuleHandleA("GameAssembly.dll");
-    if (!h) return false;
-    Base = (uintptr_t)h;
-#define R(n) n = (il2cpp_##n##_t)GetProcAddress(h, "il2cpp_" #n); if(!n) return false
-    R(domain_get); R(domain_get_assemblies); R(assembly_get_image); R(image_get_name);
-    R(class_from_name); R(thread_attach);
-#undef R
-    class_get_field = (il2cpp_class_get_field_from_name_t)GetProcAddress(h, "il2cpp_class_get_field_from_name");
-    field_get = (il2cpp_field_static_get_value_t)GetProcAddress(h, "il2cpp_field_static_get_value");
-    field_set = (il2cpp_field_static_set_value_t)GetProcAddress(h, "il2cpp_field_static_set_value");
-    if (!class_get_field || !field_get || !field_set) return false;
-    auto dom = domain_get(); if (!dom) return false;
-    thread_attach(dom);
-    size_t cnt = 0;
-    auto asms = domain_get_assemblies(dom, &cnt);
-    if (!asms) return false;
-    for (size_t i = 0; i < cnt; i++) {
-        auto img = assembly_get_image(asms[i]); if (!img) continue;
-        auto nm = image_get_name(img);
-        if (nm && strcmp(nm, "Assembly-CSharp.dll") == 0) { GameImage = img; break; }
-    }
-    return GameImage != nullptr;
+#define _X 0xABu
+#define _D(n,...) ([]()->const char*{static bool _f=0;static char _b[(n)+1]={};if(!_f){const unsigned char _e[]={__VA_ARGS__};for(int _i=0;_i<(n);_i++)_b[_i]=(char)(_e[_i]^_X);_f=1;}return _b;})()
+namespace _N{typedef void*(*_t0)();typedef void**(*_t1)(void*,size_t*);typedef void*(*_t2)(void*);typedef const char*(*_t3)(void*);typedef void*(*_t4)(void*,const char*,const char*);typedef void*(*_t5)(void*,const char*);typedef void(*_t6)(void*,void*);typedef void(*_t7)(void*,void*);typedef void*(*_t8)(void*);
+inline uintptr_t _B=0;inline _t0 _f0=nullptr;inline _t1 _f1=nullptr;inline _t2 _f2=nullptr;inline _t3 _f3=nullptr;inline _t4 _f4=nullptr;inline _t5 _f5=nullptr;inline _t6 _f6=nullptr;inline _t7 _f7=nullptr;inline _t8 _f8=nullptr;inline void* _gi=nullptr;
+template<typename T>T _r(uintptr_t _a){__try{return*(T*)_a;}__except(1){return T{};}}
+template<typename T>void _w(uintptr_t _a,T _v){__try{*(T*)_a=_v;}__except(1){}}
+inline bool _vp(uintptr_t _p){__try{volatile char _c=*(char*)_p;(void)_c;return _p!=0;}__except(1){return false;}}
+bool _ii(){HMODULE _h=GetModuleHandleA(_D(16,0xECu,0xCAu,0xC6u,0xCEu,0xEAu,0xD8u,0xD8u,0xCEu,0xC6u,0xC9u,0xC7u,0xD2u,0x85u,0xCFu,0xC7u,0xC7u));if(!_h)return 0;_B=(uintptr_t)_h;
+_f0=(_t0)GetProcAddress(_h,_D(17,0xC2u,0xC7u,0x99u,0xC8u,0xDBu,0xDBu,0xF4u,0xCFu,0xC4u,0xC6u,0xCAu,0xC2u,0xC5u,0xF4u,0xCCu,0xCEu,0xDFu));if(!_f0)return 0;
+_f1=(_t1)GetProcAddress(_h,_D(28,0xC2u,0xC7u,0x99u,0xC8u,0xDBu,0xDBu,0xF4u,0xCFu,0xC4u,0xC6u,0xCAu,0xC2u,0xC5u,0xF4u,0xCCu,0xCEu,0xDFu,0xF4u,0xCAu,0xD8u,0xD8u,0xCEu,0xC6u,0xC9u,0xC7u,0xC2u,0xCEu,0xD8u));if(!_f1)return 0;
+_f2=(_t2)GetProcAddress(_h,_D(25,0xC2u,0xC7u,0x99u,0xC8u,0xDBu,0xDBu,0xF4u,0xCAu,0xD8u,0xD8u,0xCEu,0xC6u,0xC9u,0xC7u,0xD2u,0xF4u,0xCCu,0xCEu,0xDFu,0xF4u,0xC2u,0xC6u,0xCAu,0xCCu,0xCEu));if(!_f2)return 0;
+_f3=(_t3)GetProcAddress(_h,_D(21,0xC2u,0xC7u,0x99u,0xC8u,0xDBu,0xDBu,0xF4u,0xC2u,0xC6u,0xCAu,0xCCu,0xCEu,0xF4u,0xCCu,0xCEu,0xDFu,0xF4u,0xC5u,0xCAu,0xC6u,0xCEu));if(!_f3)return 0;
+_f4=(_t4)GetProcAddress(_h,_D(22,0xC2u,0xC7u,0x99u,0xC8u,0xDBu,0xDBu,0xF4u,0xC8u,0xC7u,0xCAu,0xD8u,0xD8u,0xF4u,0xCDu,0xD9u,0xC4u,0xC6u,0xF4u,0xC5u,0xCAu,0xC6u,0xCEu));if(!_f4)return 0;
+_f8=(_t8)GetProcAddress(_h,_D(20,0xC2u,0xC7u,0x99u,0xC8u,0xDBu,0xDBu,0xF4u,0xDFu,0xC3u,0xD9u,0xCEu,0xCAu,0xCFu,0xF4u,0xCAu,0xDFu,0xDFu,0xCAu,0xC8u,0xC3u));if(!_f8)return 0;
+_f5=(_t5)GetProcAddress(_h,_D(32,0xC2u,0xC7u,0x99u,0xC8u,0xDBu,0xDBu,0xF4u,0xC8u,0xC7u,0xCAu,0xD8u,0xD8u,0xF4u,0xCCu,0xCEu,0xDFu,0xF4u,0xCDu,0xC2u,0xCEu,0xC7u,0xCFu,0xF4u,0xCDu,0xD9u,0xC4u,0xC6u,0xF4u,0xC5u,0xCAu,0xC6u,0xCEu));
+_f6=(_t6)GetProcAddress(_h,_D(29,0xC2u,0xC7u,0x99u,0xC8u,0xDBu,0xDBu,0xF4u,0xCDu,0xC2u,0xCEu,0xC7u,0xCFu,0xF4u,0xD8u,0xDFu,0xCAu,0xDFu,0xC2u,0xC8u,0xF4u,0xCCu,0xCEu,0xDFu,0xF4u,0xDDu,0xCAu,0xC7u,0xDEu,0xCEu));
+_f7=(_t7)GetProcAddress(_h,_D(29,0xC2u,0xC7u,0x99u,0xC8u,0xDBu,0xDBu,0xF4u,0xCDu,0xC2u,0xCEu,0xC7u,0xCFu,0xF4u,0xD8u,0xDFu,0xCAu,0xDFu,0xC2u,0xC8u,0xF4u,0xD8u,0xCEu,0xDFu,0xF4u,0xDDu,0xCAu,0xC7u,0xDEu,0xCEu));
+if(!_f5||!_f6||!_f7)return 0;
+auto _dm=_f0();if(!_dm)return 0;_f8(_dm);size_t _cn=0;auto _al=_f1(_dm,&_cn);if(!_al)return 0;
+for(size_t _i=0;_i<_cn;_i++){auto _im=_f2(_al[_i]);if(!_im)continue;auto _nm=_f3(_im);if(_nm&&strcmp(_nm,_D(19,0xEAu,0xD8u,0xD8u,0xCEu,0xC6u,0xC9u,0xC7u,0xD2u,0x86u,0xE8u,0xF8u,0xC3u,0xCAu,0xD9u,0xDBu,0x85u,0xCFu,0xC7u,0xC7u))==0){_gi=_im;break;}}return _gi!=nullptr;}
+void* _ffc(const char* _ns,const char* _cn){return _gi?_f4(_gi,_ns,_cn):nullptr;}
+template<typename T>T _gs(void* _cl,const char* _f){if(!_cl)return T{};auto _fd=_f5(_cl,_f);if(!_fd)return T{};T _v{};_f6(_fd,&_v);return _v;}
+template<typename T>void _ss(void* _cl,const char* _f,T _v){if(!_cl)return;auto _fd=_f5(_cl,_f);if(!_fd)return;_f7(_fd,&_v);}
+int _lc(uintptr_t _l){return _vp(_l)?_r<int>(_l+0x18):0;}
+uintptr_t _li(uintptr_t _l,int _i){if(!_vp(_l))return 0;uintptr_t _it=_r<uintptr_t>(_l+0x10);if(!_vp(_it))return 0;if(_i<0||_i>=_r<int>(_l+0x18))return 0;return _r<uintptr_t>(_it+0x20+(uintptr_t)_i*8);}
 }
-void* FindClass(const char* ns, const char* name) { return GameImage ? class_from_name(GameImage, ns, name) : nullptr; }
-template<typename T> T GetStatic(void* cls, const char* f) {
-    if (!cls) return T{}; auto fld = class_get_field(cls, f); if (!fld) return T{};
-    T v{}; field_get(fld, &v); return v;
-}
-template<typename T> void SetStatic(void* cls, const char* f, T v) {
-    if (!cls) return; auto fld = class_get_field(cls, f); if (!fld) return;
-    field_set(fld, &v);
-}
-int ListCount(uintptr_t l) { if (!Valid(l)) return 0; return Read<int>(l + 0x18); }
-uintptr_t ListItem(uintptr_t l, int i) {
-    if (!Valid(l)) return 0; uintptr_t items = Read<uintptr_t>(l + 0x10);
-    if (!Valid(items)) return 0; if (i < 0 || i >= Read<int>(l + 0x18)) return 0;
-    return Read<uintptr_t>(items + 0x20 + (uintptr_t)i * 8);
-}
-}
-using namespace Il2Cpp;
-static void* g_inGameClass = nullptr;
-struct State {
-    bool infiniteCash=0,infiniteHealth=0,instantCooldowns=0,pauseWeapons=0;
-    bool debugOptions=0,sandbox=0,autoPlay=0,blockAutoPlay=0;
-    bool freeTowers=0,lockHeroPurchases=0,lockTowerPurchases=0,autoAbility=0;
-    bool freezeSpawner=0,infiniteRange=0,godMode=0,doubleCash=0;
-    bool noLivesLost=0,infinitePierce=0,maxDamage=0,fastForward=0;
-};
-static State& S() { static State s; return s; }
-static bool GameInit() {
-    if (!Il2Cpp::Init()) return false;
-    g_inGameClass = Il2Cpp::FindClass("", "InGame");
-    if (!g_inGameClass) g_inGameClass = Il2Cpp::FindClass("Assets.Scripts.Unity.UI_New.InGame", "InGame");
-    return g_inGameClass != nullptr;
-}
-static uintptr_t GetInGame() { return g_inGameClass ? (uintptr_t)GetStatic<void*>(g_inGameClass, "instance") : 0; }
-static uintptr_t GetBridge() { uintptr_t ig = GetInGame(); return (ig && Valid(ig)) ? Read<uintptr_t>(ig + InGame::Bridge) : 0; }
-static uintptr_t GetSim() { uintptr_t br = GetBridge(); return (br && Valid(br)) ? Read<uintptr_t>(br + UnityToSim::SimPtr) : 0; }
-static uintptr_t GetTowerMgr() { uintptr_t s = GetSim(); return (s && Valid(s)) ? Read<uintptr_t>(s + Simulation::TowerManager) : 0; }
-static uintptr_t GetBloonMgr() { uintptr_t s = GetSim(); return (s && Valid(s)) ? Read<uintptr_t>(s + Simulation::BloonManager) : 0; }
-static uintptr_t GetMap() { uintptr_t s = GetSim(); return (s && Valid(s)) ? Read<uintptr_t>(s + Simulation::MapPtr) : 0; }
-static uintptr_t GetSpawner() { uintptr_t m = GetMap(); return (m && Valid(m)) ? Read<uintptr_t>(m + MapObj::Spawner) : 0; }
-template<typename F> static void ForTower(F fn) {
-    uintptr_t tm = GetTowerMgr(); if (!tm) return;
-    uintptr_t l = Read<uintptr_t>(tm + TowerMgr::Towers);
-    int c = ListCount(l);
-    for (int i = 0; i < c; i++) { uintptr_t t = ListItem(l, i); if (t && Valid(t)) fn(t); }
-}
-template<typename F> static void ForBloon(F fn) {
-    uintptr_t bm = GetBloonMgr(); if (!bm) return;
-    uintptr_t l = Read<uintptr_t>(bm + BloonMgr::Bloons);
-    int c = ListCount(l);
-    for (int i = 0; i < c; i++) { uintptr_t b = ListItem(l, i); if (b && Valid(b)) fn(b); }
-}
-template<typename F> static void ForAbility(uintptr_t tower, F fn) {
-    uintptr_t l = Read<uintptr_t>(tower + Tower::Abilities);
-    int c = ListCount(l);
-    for (int i = 0; i < c; i++) { uintptr_t a = ListItem(l, i); if (a && Valid(a)) fn(a); }
-}
-template<typename F> static void ForWeapon(uintptr_t tower, F fn) {
-    uintptr_t l = Read<uintptr_t>(tower + Tower::Weapons);
-    int c = ListCount(l);
-    for (int i = 0; i < c; i++) { uintptr_t w = ListItem(l, i); if (w && Valid(w)) fn(w); }
-}
-template<typename F> static void ForAllAbilities(F fn) { ForTower([&fn](uintptr_t t) { ForAbility(t, fn); }); }
-template<typename F> static void ForAllWeapons(F fn) { ForTower([&fn](uintptr_t t) { ForWeapon(t, fn); }); }
-static int TowerCount() { uintptr_t tm=GetTowerMgr(); return tm ? ListCount(Read<uintptr_t>(tm+TowerMgr::Towers)) : 0; }
-static int BloonCount() { uintptr_t bm=GetBloonMgr(); return bm ? ListCount(Read<uintptr_t>(bm+BloonMgr::Bloons)) : 0; }
-static uintptr_t TowerAt(int i) { uintptr_t tm=GetTowerMgr(); return tm ? ListItem(Read<uintptr_t>(tm+TowerMgr::Towers),i) : 0; }
-static uintptr_t BloonAt(int i) { uintptr_t bm=GetBloonMgr(); return bm ? ListItem(Read<uintptr_t>(bm+BloonMgr::Bloons),i) : 0; }
-static void Mk_SellAll() { uintptr_t br=GetBridge(); if(br) ((void(*)(void*,void*))(Base+RVA::BridgeR::SellAllTowers))((void*)br,nullptr); }
-static void Mk_SellAllProps() { uintptr_t br=GetBridge(); if(br) ((void(*)(void*,void*))(Base+RVA::BridgeR::SellAllProps))((void*)br,nullptr); }
-static void Mk_ResetAbilityCDs() { uintptr_t br=GetBridge(); if(br) ((void(*)(void*,void*))(Base+RVA::BridgeR::ResetAbilityCooldowns))((void*)br,nullptr); }
-static void Mk_ClearAllAbilityCDs() { ForAllAbilities([](uintptr_t a) { Write<float>(a+Ability::Cooldown,0); }); }
-static void Mk_ActivateAllAbilities() { ForAllAbilities([](uintptr_t a) { ((void(*)(void*,void*))(Base+RVA::AbilityR::Activate))((void*)a,nullptr); }); }
-static void Mk_DeactivateAllAbilities() { ForAllAbilities([](uintptr_t a) { ((void(*)(void*,void*))(Base+RVA::AbilityR::Deactivate))((void*)a,nullptr); }); }
-static void Mk_PauseWeapons() { auto& s=S(); s.pauseWeapons=!s.pauseWeapons; uintptr_t sim=GetSim(); if(sim) Write<bool>(sim+Simulation::PauseWeapons,s.pauseWeapons); }
-static void Mk_InstantCooldowns() { auto& s=S(); s.instantCooldowns=!s.instantCooldowns; uintptr_t sim=GetSim(); if(sim) Write<bool>(sim+Simulation::InstantCooldowns,s.instantCooldowns); }
-static void Mk_ToggleWeapons() { uintptr_t br=GetBridge(); if(br) ((void(*)(void*,void*))(Base+RVA::BridgeR::ToggleWeapons))((void*)br,nullptr); }
-static void Mk_SetAllWeaponRate(float r) { ForAllWeapons([r](uintptr_t w) { Write<float>(w+Weapon::Rate,r); }); }
-static void Mk_SetAllWeaponCD(float c) { ForAllWeapons([c](uintptr_t w) { Write<float>(w+Weapon::Cooldown,c); }); }
-static void Mk_EnableAllWeapons() { ForAllWeapons([](uintptr_t w) { Write<bool>(w+Weapon::Enabled,true); }); }
-static void Mk_DisableAllWeapons() { ForAllWeapons([](uintptr_t w) { Write<bool>(w+Weapon::Enabled,false); }); }
-static void Mk_SetAllWorth(double v) { ForTower([v](uintptr_t t) { Write<double>(t+Tower::Worth,v); }); }
-static void Mk_SetAllDmgDealt(double v) { ForTower([v](uintptr_t t) { Write<double>(t+Tower::DamageDealt,v); }); }
-static void Mk_ResetDamages() { uintptr_t br=GetBridge(); if(br) ((void(*)(void*,void*))(Base+RVA::BridgeR::ResetDamages))((void*)br,nullptr); }
-static void Mk_MaxGeraldo() { uintptr_t br=GetBridge(); if(br) ((void(*)(void*,void*))(Base+RVA::BridgeR::MaxGeraldoStock))((void*)br,nullptr); }
-static void Mk_SetAllAbilityCD(float c) { ForAllAbilities([c](uintptr_t a) { Write<float>(a+Ability::Cooldown,c); }); }
-static void Mk_SetAllAbilityMaxCD(float c) { ForAllAbilities([c](uintptr_t a) { Write<float>(a+Ability::CooldownMax,c); }); }
-static void Mk_AllAbilitiesReady() { ForAllAbilities([](uintptr_t a) { Write<float>(a+Ability::Cooldown,0); Write<bool>(a+Ability::CanActivate,true); }); }
-static void Mk_SetAllCashEarned(double v) { ForTower([v](uintptr_t t) { Write<double>(t+Tower::CashEarned,v); }); }
-static void Mk_SetAllOwner(int o) { ForTower([o](uintptr_t t) { Write<int>(t+Tower::Owner,o); }); }
-static void Mk_SetAllSelectable(bool v) { ForTower([v](uintptr_t t) { Write<bool>(t+Tower::IsSelectable,v); }); }
-static void Mk_DeleteAll() { uintptr_t ig=GetInGame(); if(ig) ((void(*)(void*,void*))(Base+RVA::InGameR::DeleteAllTowers))((void*)ig,nullptr); }
-static void Mk_LockHeroPurchases() { auto& s=S(); s.lockHeroPurchases=!s.lockHeroPurchases; uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,bool,void*))(Base+RVA::Sim::LockHeroPurchases))((void*)sim,s.lockHeroPurchases,nullptr); }
-static void Mk_LockTowerPurchases() { auto& s=S(); s.lockTowerPurchases=!s.lockTowerPurchases; uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,bool,void*))(Base+RVA::Sim::LockTowerPurchases))((void*)sim,s.lockTowerPurchases,nullptr); }
-static void Mk_AutoAbility() { auto& s=S(); s.autoAbility=!s.autoAbility; }
-static void Mk_FreeTowers() { auto& s=S(); s.freeTowers=!s.freeTowers; }
-static void Mk_TowerSell(int i) { uintptr_t t=TowerAt(i); if(t) { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,void*,int,void*))(Base+RVA::Sim::SellTower))((void*)sim,(void*)t,0,nullptr); } }
-static void Mk_TowerSetWorth(int i, double v) { uintptr_t t=TowerAt(i); if(t) Write<double>(t+Tower::Worth,v); }
-static void Mk_TowerSetDmg(int i, double v) { uintptr_t t=TowerAt(i); if(t) Write<double>(t+Tower::DamageDealt,v); }
-static void Mk_TowerClearCD(int i) { uintptr_t t=TowerAt(i); if(t) ForAbility(t, [](uintptr_t a) { Write<float>(a+Ability::Cooldown,0); Write<bool>(a+Ability::CanActivate,true); }); }
-static void Mk_TowerActivateAbility(int i) { uintptr_t t=TowerAt(i); if(t) ForAbility(t, [](uintptr_t a) { ((void(*)(void*,void*))(Base+RVA::AbilityR::Activate))((void*)a,nullptr); }); }
-static void Mk_TowerDisableWeapons(int i) { uintptr_t t=TowerAt(i); if(t) ForWeapon(t, [](uintptr_t w) { Write<bool>(w+Weapon::Enabled,false); }); }
-static void Mk_TowerEnableWeapons(int i) { uintptr_t t=TowerAt(i); if(t) ForWeapon(t, [](uintptr_t w) { Write<bool>(w+Weapon::Enabled,true); }); }
-static void Mk_TowerSetWeaponRate(int i, float r) { uintptr_t t=TowerAt(i); if(t) ForWeapon(t, [r](uintptr_t w) { Write<float>(w+Weapon::Rate,r); }); }
-static void Mk_TowerSetSelectable(int i, bool v) { uintptr_t t=TowerAt(i); if(t) Write<bool>(t+Tower::IsSelectable,v); }
-static void Mk_TowerDestroy(int i) { uintptr_t t=TowerAt(i); if(t) ((void(*)(void*,void*))(Base+RVA::TowerR::Destroy))((void*)t,nullptr); }
-static void Mk_AbilitiesChanged() { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,void*))(Base+RVA::Sim::AbilitiesChanged))((void*)sim,nullptr); }
-static void Mk_SetAllWeaponCDZero() { ForAllWeapons([](uintptr_t w) { Write<float>(w+Weapon::Cooldown,0); }); }
-static void Mk_TowerUpgrade(int i) { uintptr_t t=TowerAt(i); if(t) ((void(*)(void*,void*))(Base+RVA::TowerR::Upgrade))((void*)t,nullptr); }
-static void Mk_TowerAddCash(int i, double v) { uintptr_t t=TowerAt(i); if(t) ((void(*)(void*,double,void*))(Base+RVA::TowerR::AddCash))((void*)t,v,nullptr); }
-static void Mk_TowerSetTarget(int i, int type) { uintptr_t t=TowerAt(i); if(t) ((void(*)(void*,int,void*))(Base+RVA::TowerR::SetTargetType))((void*)t,type,nullptr); }
-static void Mk_SpawnAllDarts() { ForAllWeapons([](uintptr_t w) { ((void(*)(void*,void*))(Base+RVA::WeaponR::SpawnDart))((void*)w,nullptr); }); }
-static void Mk_UpgradeParagon(int i) { uintptr_t t=TowerAt(i); if(!t) return; uintptr_t tm=GetTowerMgr(); if(tm) ((void(*)(void*,void*,void*))(Base+RVA::TowerMgrR::UpgradeTowerParagon))((void*)tm,(void*)t,nullptr); }
-static void Mk_TowerMgrSell(int i) { uintptr_t t=TowerAt(i); if(!t) return; uintptr_t tm=GetTowerMgr(); if(tm) ((void(*)(void*,void*,void*))(Base+RVA::TowerMgrR::SellTower))((void*)tm,(void*)t,nullptr); }
-static void Mk_TowerMgrDestroy(int i) { uintptr_t t=TowerAt(i); if(!t) return; uintptr_t tm=GetTowerMgr(); if(tm) ((void(*)(void*,void*,void*))(Base+RVA::TowerMgrR::DestroyTower))((void*)tm,(void*)t,nullptr); }
-static void Mk_TowerSellDirect(int i) { uintptr_t t=TowerAt(i); if(t) ((void(*)(void*,void*))(Base+RVA::TowerR::Sell))((void*)t,nullptr); }
-static void V_SetCash(double c) { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,double,int,void*))(Base+RVA::Sim::SetCash))((void*)sim,c,-1,nullptr); }
-static void V_AddCash(double c) { uintptr_t ig=GetInGame(); if(ig) ((void(*)(void*,double,void*))(Base+RVA::InGameR::CheatSetCash))((void*)ig,c,nullptr); }
-static void V_InfiniteCash() { auto& s=S(); s.infiniteCash=!s.infiniteCash; }
-static void V_SetHealth(float h) { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,float,bool,void*))(Base+RVA::Sim::SetHealth))((void*)sim,h,false,nullptr); }
-static void V_SetHealthDirect(float h) { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,float,void*))(Base+RVA::Sim::set_Health))((void*)sim,h,nullptr); }
-static void V_InfiniteHealth() { auto& s=S(); s.infiniteHealth=!s.infiniteHealth; }
-static void V_ResetHealth() { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,void*))(Base+RVA::Sim::ResetHealth))((void*)sim,nullptr); }
-static void V_InfiniteHealthMode() { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,void*))(Base+RVA::Sim::ResetToInfinitHealth))((void*)sim,nullptr); }
-static void V_SetMaxHealth(float h) { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,float,void*))(Base+RVA::Sim::set_MaxHealth))((void*)sim,h,nullptr); }
-static void V_SetShield(float v) { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,float,void*))(Base+RVA::Sim::set_Shield))((void*)sim,v,nullptr); }
-static void V_SetRevives(int v) { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,int,void*))(Base+RVA::Sim::set_Revives))((void*)sim,v,nullptr); }
-static void V_TakeDmg(float d) { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,float,void*))(Base+RVA::Sim::TakeDamage))((void*)sim,d,nullptr); }
-static void V_DoubleCash() { auto& s=S(); s.doubleCash=!s.doubleCash; }
-static void V_NoLivesLost() { auto& s=S(); s.noLivesLost=!s.noLivesLost; uintptr_t sim=GetSim(); if(sim) Write<bool>(sim+Simulation::NoLivesLost,s.noLivesLost); }
-static void V_SetCashSpent(double v) { uintptr_t sim=GetSim(); if(sim) Write<double>(sim+Simulation::CashSpent,v); }
-static void V_HasCashChanged(bool v) { uintptr_t sim=GetSim(); if(sim) Write<bool>(sim+Simulation::HasCashChanged,v); }
-static void V_HasHealthChanged(bool v) { uintptr_t sim=GetSim(); if(sim) Write<bool>(sim+Simulation::HasHealthChanged,v); }
-static void V_SetBloonOverride(int v) { uintptr_t sim=GetSim(); if(sim) Write<int>(sim+Simulation::BloonLivesLostOverride,v); }
-static void V_GodMode() { auto& s=S(); s.godMode=!s.godMode; }
-static void V_SetMaxSoftcap(float v) { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,float,void*))(Base+RVA::Sim::set_MaxHealth))((void*)sim,v,nullptr); }
-static void V_DebugOptions() { auto& s=S(); s.debugOptions=!s.debugOptions; uintptr_t sim=GetSim(); if(sim) Write<bool>(sim+Simulation::DebugOptions,s.debugOptions); }
-static void V_SetTierCount(int v) { uintptr_t sim=GetSim(); if(sim) Write<int>(sim+Simulation::CachedTierCount,v); }
-static void V_RemoveCash(double c) { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,double,int,void*))(Base+RVA::Sim::RemoveCash))((void*)sim,c,-1,nullptr); }
-static void V_AddCashBridge(double c) { uintptr_t br=GetBridge(); if(br) ((void(*)(void*,double,int,void*))(Base+RVA::BridgeR::AddCash))((void*)br,c,-1,nullptr); }
-static void V_SetCashBridge(double c) { uintptr_t br=GetBridge(); if(br) ((void(*)(void*,double,int,void*))(Base+RVA::BridgeR::SetCash))((void*)br,c,-1,nullptr); }
-static void V_SendCash(int player) { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,int,double,void*))(Base+RVA::Sim::SendCash))((void*)sim,player,1000.0,nullptr); }
-static void V_AddSharedCash(double c) { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,double,void*))(Base+RVA::Sim::AddSharedCash))((void*)sim,c,nullptr); }
-static void V_CheatSetHealth(float h) { uintptr_t ig=GetInGame(); if(ig) ((void(*)(void*,float,void*))(Base+RVA::InGameR::CheatSetHealth))((void*)ig,h,nullptr); }
-static void V_SetStartingHealth(float v) { uintptr_t sim=GetSim(); if(sim) Write<float>(sim+Simulation::StartingHealth,v); }
-static void V_SetSoftcapMod(float v) { uintptr_t sim=GetSim(); if(sim) Write<float>(sim+Simulation::SoftcapPctMod,v); }
-static void V_SetMaxShield(float v) { uintptr_t sim=GetSim(); if(sim) Write<float>(sim+Simulation::MaxShield,v); }
-static void W_DestroyAllBloons() { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,void*))(Base+RVA::Sim::DestroyAllBloons))((void*)sim,nullptr); }
-static void W_DestroyAllBloonsIG() { uintptr_t ig=GetInGame(); if(ig) ((void(*)(void*,void*))(Base+RVA::InGameR::DeleteAllBloons))((void*)ig,nullptr); }
-static void W_DestroyAllProjectiles() { uintptr_t br=GetBridge(); if(br) ((void(*)(void*,void*))(Base+RVA::BridgeR::DestroyAllProjectiles))((void*)br,nullptr); }
-static void W_ClearBloons() { uintptr_t br=GetBridge(); if(br) ((void(*)(void*,void*))(Base+RVA::BridgeR::ClearBloons))((void*)br,nullptr); }
-static void W_StartRound() { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,void*))(Base+RVA::Sim::StartRound))((void*)sim,nullptr); }
-static void W_StartRoundBridge() { uintptr_t br=GetBridge(); if(br) ((void(*)(void*,void*))(Base+RVA::BridgeR::StartRound))((void*)br,nullptr); }
-static void W_SetRound(int r) { uintptr_t br=GetBridge(); if(br) ((void(*)(void*,int,void*))(Base+RVA::BridgeR::SetRound))((void*)br,r,nullptr); }
-static void W_SetEndRound(int r) { uintptr_t br=GetBridge(); if(br) ((void(*)(void*,int,void*))(Base+RVA::BridgeR::SetEndRound))((void*)br,r,nullptr); }
-static void W_ResetRound() { uintptr_t br=GetBridge(); if(br) ((void(*)(void*,void*))(Base+RVA::BridgeR::ResetRound))((void*)br,nullptr); }
-static void W_AutoPlay() { auto& s=S(); s.autoPlay=!s.autoPlay; uintptr_t sim=GetSim(); if(sim) Write<bool>(sim+Simulation::AutoPlay,s.autoPlay); }
-static void W_BlockAutoPlay() { auto& s=S(); s.blockAutoPlay=!s.blockAutoPlay; uintptr_t br=GetBridge(); if(br) ((void(*)(void*,bool,void*))(Base+RVA::BridgeR::SetBlockAutoPlay))((void*)br,s.blockAutoPlay,nullptr); }
-static void W_PauseAutoPlay() { uintptr_t sim=GetSim(); if(sim) Write<bool>(sim+Simulation::PauseAutoPlay,!Read<bool>(sim+Simulation::PauseAutoPlay)); }
-static void W_Sandbox() { auto& s=S(); s.sandbox=!s.sandbox; uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,bool,void*))(Base+RVA::Sim::SetSandbox))((void*)sim,s.sandbox,nullptr); }
-static void W_FreezeSpawner() { auto& s=S(); s.freezeSpawner=!s.freezeSpawner; uintptr_t sp=GetSpawner(); if(sp) Write<bool>(sp+SpawnerObj::IsPaused,s.freezeSpawner); }
-static void W_SetSpawnerRound(int r) { uintptr_t sp=GetSpawner(); if(sp) Write<int>(sp+SpawnerObj::CurrentRound,r); }
-static void W_SetBloonHP(float h) { ForBloon([h](uintptr_t b) { Write<float>(b+Bloon::Health,h); }); }
-static void W_DamageAllBloons(float d) { ForBloon([d](uintptr_t b) { float h=Read<float>(b+Bloon::Health); Write<float>(b+Bloon::Health,h>d?h-d:0); }); }
-static void W_KillAllBloons() { ForBloon([](uintptr_t b) { Write<float>(b+Bloon::Health,0); }); }
-static void W_SetBloonDistance(float d) { ForBloon([d](uintptr_t b) { Write<float>(b+Bloon::DistanceTraveled,d); }); }
-static void W_BloonMaxDistance() { ForBloon([](uintptr_t b) { float tot=Read<float>(b+Bloon::TotalDistanceToExit); Write<float>(b+Bloon::DistanceTraveled,tot); }); }
-static void W_SetRoundMutators(int r) { uintptr_t sim=GetSim(); if(sim) ((void(*)(void*,int,void*))(Base+RVA::Sim::SetRoundMutators))((void*)sim,r,nullptr); }
-static void W_Victory() { uintptr_t sim=GetSim(); if(sim) ((bool(*)(void*,void*))(Base+RVA::Sim::SetVictory))((void*)sim,nullptr); }
-static void W_Defeat() { uintptr_t sim=GetSim(); if(sim) ((bool(*)(void*,void*))(Base+RVA::Sim::SetDefeat))((void*)sim,nullptr); }
-static void W_Win() { uintptr_t br=GetBridge(); if(br) ((void(*)(void*,void*))(Base+RVA::BridgeR::Win))((void*)br,nullptr); }
-static void W_Restart() { uintptr_t ig=GetInGame(); if(ig) ((void(*)(void*,void*))(Base+RVA::InGameR::Restart))((void*)ig,nullptr); }
-static void W_QuickRestart() { uintptr_t ig=GetInGame(); if(ig) ((void(*)(void*,void*))(Base+RVA::InGameR::QuickRestart))((void*)ig,nullptr); }
-static void W_StartFreePlay() { uintptr_t ig=GetInGame(); if(ig) ((void(*)(void*,void*))(Base+RVA::InGameR::StartFreePlay))((void*)ig,nullptr); }
-static void W_ForceDefeat() { uintptr_t ig=GetInGame(); if(ig) ((void(*)(void*,void*))(Base+RVA::InGameR::ForceDefeat))((void*)ig,nullptr); }
-static void W_Continue() { uintptr_t ig=GetInGame(); if(ig) ((void(*)(void*,void*))(Base+RVA::InGameR::Continue))((void*)ig,nullptr); }
-static void W_StopClock() { uintptr_t ig=GetInGame(); if(ig) ((void(*)(void*,void*))(Base+RVA::InGameR::StopClock))((void*)ig,nullptr); }
-static void W_ResumeClock() { uintptr_t ig=GetInGame(); if(ig) ((void(*)(void*,void*))(Base+RVA::InGameR::ResumeClock))((void*)ig,nullptr); }
-static void W_FastForward() { auto& s=S(); s.fastForward=!s.fastForward; uintptr_t ig=GetInGame(); if(ig) ((void(*)(void*,void*))(Base+RVA::InGameR::PlayFastForward))((void*)ig,nullptr); }
-static void W_CheatSetRound(int r) { uintptr_t ig=GetInGame(); if(ig) ((void(*)(void*,int,void*))(Base+RVA::InGameR::CheatSetRound))((void*)ig,r,nullptr); }
-static void W_SetMatchWon(bool v) { uintptr_t ig=GetInGame(); if(ig) Write<bool>(ig+InGame::MatchWon,v); }
-static void W_SetMatchLost(bool v) { uintptr_t ig=GetInGame(); if(ig) Write<bool>(ig+InGame::MatchLost,v); }
-static void W_SetGameStarted(bool v) { uintptr_t sim=GetSim(); if(sim) Write<bool>(sim+Simulation::GameStarted,v); }
-static void W_SetGameLost(bool v) { uintptr_t sim=GetSim(); if(sim) Write<bool>(sim+Simulation::GameLost,v); }
-static void W_SetGameWon(bool v) { uintptr_t sim=GetSim(); if(sim) Write<bool>(sim+Simulation::GameWon,v); }
-static void W_Quit() { uintptr_t ig=GetInGame(); if(ig) ((void(*)(void*,void*))(Base+RVA::InGameR::Quit))((void*)ig,nullptr); }
-static void W_SpawnerStart() { uintptr_t sp=GetSpawner(); if(sp) ((void(*)(void*,void*))(Base+RVA::SpawnerR::StartRound))((void*)sp,nullptr); }
-static void W_SpawnerSetRound(int r) { uintptr_t sp=GetSpawner(); if(sp) ((void(*)(void*,int,void*))(Base+RVA::SpawnerR::SetRound))((void*)sp,r,nullptr); }
-static void W_OnVictory() { uintptr_t ig=GetInGame(); if(ig) ((void(*)(void*,void*))(Base+RVA::InGameR::OnVictory))((void*)ig,nullptr); }
-static void W_BloonMgrDamage(int i) { uintptr_t bm=GetBloonMgr(); uintptr_t b=BloonAt(i); if(bm&&b) ((void(*)(void*,void*,void*))(Base+RVA::BloonMgrR::BloonDamage))((void*)bm,(void*)b,nullptr); }
-static void W_BloonMgrDestroy(int i) { uintptr_t bm=GetBloonMgr(); uintptr_t b=BloonAt(i); if(bm&&b) ((void(*)(void*,void*,void*))(Base+RVA::BloonMgrR::BloonDestroy))((void*)bm,(void*)b,nullptr); }
-static void W_SetMatchJustWon(bool v) { uintptr_t sim=GetSim(); if(sim) Write<bool>(sim+Simulation::MatchJustWon,v); }
-static void X_InfinitePierce() { auto& s=S(); s.infinitePierce=!s.infinitePierce; }
-static void X_MaxDamage() { auto& s=S(); s.maxDamage=!s.maxDamage; }
-static void X_SetShowCancel(int v) { uintptr_t sim=GetSim(); if(sim) Write<int>(sim+Simulation::ShowCancel,v); }
-static void X_SetEndRoundTime(float v) { uintptr_t sim=GetSim(); if(sim) Write<float>(sim+Simulation::EndOnRoundAdditionalTime,v); }
-static void X_CanEarnXP(bool v) { uintptr_t sim=GetSim(); if(sim) Write<bool>(sim+Simulation::CanEarnXP,v); }
-static void X_SetPlayBtnDisabled(bool v) { uintptr_t ig=GetInGame(); if(ig) Write<bool>(ig+InGame::PlayBtnDisabled,v); }
-static void X_SetMapEditorSandbox(bool v) { uintptr_t ig=GetInGame(); if(ig) Write<bool>(ig+InGame::MapEditorSandbox,v); }
-static void X_FlushProcess() { }
-static void X_GetAvailableCash() {}
-static void X_SetTakenLeakDmg(bool v) { uintptr_t sim=GetSim(); if(sim) Write<bool>(sim+Simulation::HasTakenLeakDamage,v); }
-static void X_BloonAt_SetHP(int i, float h) { uintptr_t b=BloonAt(i); if(b) Write<float>(b+Bloon::Health,h); }
-static void X_BloonAt_Destroy(int i) { uintptr_t b=BloonAt(i); if(b) ((void(*)(void*,void*))(Base+RVA::BloonR::Destroy))((void*)b,nullptr); }
-static void X_BloonAt_SetDist(int i, float d) { uintptr_t b=BloonAt(i); if(b) Write<float>(b+Bloon::DistanceTraveled,d); }
-static void X_BloonDamage(int i, float d) { uintptr_t b=BloonAt(i); if(b) ((void(*)(void*,float,void*))(Base+RVA::BloonR::Damage))((void*)b,d,nullptr); }
-static void X_BloonLeak(int i) { uintptr_t b=BloonAt(i); if(b) ((void(*)(void*,void*))(Base+RVA::BloonR::Leaked))((void*)b,nullptr); }
-static void X_BloonResetHP(int i) { uintptr_t b=BloonAt(i); if(b) ((void(*)(void*,void*))(Base+RVA::BloonR::ResetHealth))((void*)b,nullptr); }
-static void X_BloonSetHPRVA(int i, float h) { uintptr_t b=BloonAt(i); if(b) ((void(*)(void*,float,void*))(Base+RVA::BloonR::SetHealth))((void*)b,h,nullptr); }
-static void X_WeaponSpawnDart(int ti) { uintptr_t t=TowerAt(ti); if(t) ForWeapon(t,[](uintptr_t w) { ((void(*)(void*,void*))(Base+RVA::WeaponR::SpawnDart))((void*)w,nullptr); }); }
-static void X_WeaponSetEnabled(int ti, bool v) { uintptr_t t=TowerAt(ti); if(t) ForWeapon(t,[v](uintptr_t w) { ((void(*)(void*,bool,void*))(Base+RVA::WeaponR::SetEnabled))((void*)w,v,nullptr); }); }
-static void X_AbilitySetCD(int ti, float cd) { uintptr_t t=TowerAt(ti); if(t) ForAbility(t,[cd](uintptr_t a) { ((void(*)(void*,float,void*))(Base+RVA::AbilityR::SetCooldown))((void*)a,cd,nullptr); }); }
-static void X_AbilityClearCD(int ti) { uintptr_t t=TowerAt(ti); if(t) ForAbility(t,[](uintptr_t a) { ((void(*)(void*,void*))(Base+RVA::AbilityR::ClearCooldown))((void*)a,nullptr); }); }
-static void X_SetMaxHealthIncrease(float v) { uintptr_t sim=GetSim(); if(sim) Write<float>(sim+Simulation::MaxHealthIncrease,v); }
-static void X_SetStartingRevives(int v) { uintptr_t sim=GetSim(); if(sim) Write<int>(sim+Simulation::StartingRevives,v); }
-static std::string FmtTower(int idx) {
-    uintptr_t t=TowerAt(idx); if(!t) return "Not found";
-    std::ostringstream ss;
-    ss<<"[T"<<idx<<"]"
-      <<" Worth:"<<std::fixed<<std::setprecision(0)<<Read<double>(t+Tower::Worth)
-      <<" DmgDealt:"<<Read<double>(t+Tower::DamageDealt)
-      <<" Cash$:"<<Read<double>(t+Tower::CashEarned)
-      <<" Owner:"<<Read<int>(t+Tower::Owner)
-      <<(Read<bool>(t+Tower::IsSelectable)?" [SEL]":"");
-    uintptr_t wl=Read<uintptr_t>(t+Tower::Weapons);
-    int wc=ListCount(wl);
-    uintptr_t al=Read<uintptr_t>(t+Tower::Abilities);
-    int ac=ListCount(al);
-    ss<<" W:"<<wc<<" A:"<<ac;
-    return ss.str();
-}
-static std::string FmtBloon(int idx) {
-    uintptr_t b=BloonAt(idx); if(!b) return "Not found";
-    std::ostringstream ss;
-    ss<<"[B"<<idx<<"]"
-      <<" HP:"<<std::fixed<<std::setprecision(1)<<Read<float>(b+Bloon::Health)
-      <<" Dist:"<<Read<float>(b+Bloon::DistanceTraveled)
-      <<"/"<<Read<float>(b+Bloon::TotalDistanceToExit)
-      <<(Read<bool>(b+Bloon::IsBoss)?" [BOSS]":"");
-    return ss.str();
-}
-static std::string FmtTowers(int page) {
-    int total=TowerCount(); std::ostringstream ss;
-    ss<<"\n  === Towers ("<<total<<") ===\n";
-    int start=page*10, end=start+10; if(end>total) end=total;
-    for(int i=start;i<end;i++) ss<<"  "<<FmtTower(i)<<"\n";
-    if(total>end) ss<<"  ..."<<(total-end)<<" more (page "<<(page+1)<<")\n";
-    return ss.str();
-}
-static std::string FmtBloons(int page) {
-    int total=BloonCount(); std::ostringstream ss;
-    ss<<"\n  === Bloons ("<<total<<") ===\n";
-    int start=page*10, end=start+10; if(end>total) end=total;
-    for(int i=start;i<end;i++) ss<<"  "<<FmtBloon(i)<<"\n";
-    if(total>end) ss<<"  ..."<<(total-end)<<" more (page "<<(page+1)<<")\n";
-    return ss.str();
-}
-static std::string FmtSim() {
-    uintptr_t sim=GetSim();
-    if(!sim) return "No simulation";
-    std::ostringstream ss;
-    ss<<"\n  === Simulation ===\n"
-      <<"  Towers:"<<TowerCount()<<" Bloons:"<<BloonCount()<<"\n"
-      <<"  DebugOpt:"<<(int)Read<bool>(sim+Simulation::DebugOptions)
-      <<" InstantCD:"<<(int)Read<bool>(sim+Simulation::InstantCooldowns)
-      <<" PauseWpn:"<<(int)Read<bool>(sim+Simulation::PauseWeapons)<<"\n"
-      <<"  Started:"<<(int)Read<bool>(sim+Simulation::GameStarted)
-      <<" Won:"<<(int)Read<bool>(sim+Simulation::GameWon)
-      <<" Lost:"<<(int)Read<bool>(sim+Simulation::GameLost)
-      <<" AutoPlay:"<<(int)Read<bool>(sim+Simulation::AutoPlay)<<"\n"
-      <<"  Sandbox:"<<(int)Read<bool>(sim+Simulation::Sandbox)
-      <<" NoLivesLost:"<<(int)Read<bool>(sim+Simulation::NoLivesLost)
-      <<" LeakDmg:"<<(int)Read<bool>(sim+Simulation::HasTakenLeakDamage)<<"\n"
-      <<"  LockHero:"<<(int)Read<bool>(sim+Simulation::LockHeroPurchases)
-      <<" LockTower:"<<(int)Read<bool>(sim+Simulation::LockTowerPurchases)<<"\n"
-      <<"  TiersCached:"<<Read<int>(sim+Simulation::CachedTierCount)<<"\n";
-    return ss.str();
-}
-static std::string FmtIG() {
-    uintptr_t ig=GetInGame();
-    if(!ig) return "No InGame";
-    std::ostringstream ss;
-    ss<<"\n  === InGame ===\n"
-      <<"  MatchStarted:"<<(int)Read<bool>(ig+InGame::MatchStarted)
-      <<" Won:"<<(int)Read<bool>(ig+InGame::MatchWon)
-      <<" Lost:"<<(int)Read<bool>(ig+InGame::MatchLost)<<"\n"
-      <<"  PlayDisabled:"<<(int)Read<bool>(ig+InGame::PlayBtnDisabled)
-      <<" MapEditorSandbox:"<<(int)Read<bool>(ig+InGame::MapEditorSandbox)<<"\n";
-    return ss.str();
-}
-static std::string FmtOverview() {
-    std::ostringstream ss;
-    ss<<"\n  === Overview ===\n"
-      <<"  Towers:"<<TowerCount()<<" Bloons:"<<BloonCount()<<"\n";
-    uintptr_t sim=GetSim();
-    if(sim) {
-        ss<<"  Started:"<<(int)Read<bool>(sim+Simulation::GameStarted)
-          <<" Won:"<<(int)Read<bool>(sim+Simulation::GameWon)
-          <<" Lost:"<<(int)Read<bool>(sim+Simulation::GameLost)<<"\n"
-          <<"  Sandbox:"<<(int)Read<bool>(sim+Simulation::Sandbox)
-          <<" AutoPlay:"<<(int)Read<bool>(sim+Simulation::AutoPlay)<<"\n";
-    }
-    uintptr_t sp=GetSpawner();
-    if(sp) ss<<"  SpawnerRound:"<<Read<int>(sp+SpawnerObj::CurrentRound)
-             <<" Paused:"<<(int)Read<bool>(sp+SpawnerObj::IsPaused)<<"\n";
-    return ss.str();
-}
-static ToggleState BuildState() {
-    auto& s=S(); ToggleState t={};
-    t.infiniteCash=s.infiniteCash; t.infiniteHealth=s.infiniteHealth;
-    t.instantCooldowns=s.instantCooldowns; t.pauseWeapons=s.pauseWeapons;
-    t.debugOptions=s.debugOptions; t.sandbox=s.sandbox;
-    t.autoPlay=s.autoPlay; t.blockAutoPlay=s.blockAutoPlay;
-    t.freeTowers=s.freeTowers; t.lockHeroPurchases=s.lockHeroPurchases;
-    t.lockTowerPurchases=s.lockTowerPurchases; t.autoAbility=s.autoAbility;
-    t.freezeSpawner=s.freezeSpawner; t.infiniteRange=s.infiniteRange;
-    t.godMode=s.godMode; t.doubleCash=s.doubleCash;
-    t.noLivesLost=s.noLivesLost; t.infinitePierce=s.infinitePierce;
-    t.maxDamage=s.maxDamage; t.fastForward=s.fastForward;
-    return t;
-}
-static ResponsePacket Ok(const char* m="") {
-    ResponsePacket r={}; r.success=1; r.state=BuildState();
-    strncpy_s(r.message,m,RESPONSE_MSG_SIZE-1); return r;
-}
-static ResponsePacket HandleMonkey(uint32_t fn, int ip, float fp) {
-    switch(fn) {
-    case 1: Mk_SellAll(); return Ok("Sold all towers");
-    case 2: Mk_SellAllProps(); return Ok("Sold all props");
-    case 3: Mk_ResetAbilityCDs(); return Ok("Ability CDs reset");
-    case 4: Mk_ClearAllAbilityCDs(); return Ok("All ability CDs cleared");
-    case 5: Mk_ActivateAllAbilities(); return Ok("All abilities activated");
-    case 6: Mk_DeactivateAllAbilities(); return Ok("All abilities deactivated");
-    case 7: Mk_PauseWeapons(); return Ok("Pause weapons toggled");
-    case 8: Mk_InstantCooldowns(); return Ok("Instant cooldowns toggled");
-    case 9: Mk_ToggleWeapons(); return Ok("Weapons toggled");
-    case 10: Mk_SetAllWeaponRate(fp); return Ok("Weapon rate set");
-    case 11: Mk_SetAllWeaponCD(fp); return Ok("Weapon CD set");
-    case 12: Mk_EnableAllWeapons(); return Ok("All weapons enabled");
-    case 13: Mk_DisableAllWeapons(); return Ok("All weapons disabled");
-    case 14: Mk_SetAllWorth((double)fp); return Ok("All tower worth set");
-    case 15: Mk_SetAllDmgDealt((double)fp); return Ok("All tower dmg set");
-    case 16: Mk_ResetDamages(); return Ok("Damages reset");
-    case 17: Mk_MaxGeraldo(); return Ok("Geraldo maxed");
-    case 18: Mk_SetAllAbilityCD(fp); return Ok("All ability CD set");
-    case 19: Mk_SetAllAbilityMaxCD(fp); return Ok("All ability max CD set");
-    case 20: Mk_AllAbilitiesReady(); return Ok("All abilities ready");
-    case 21: Mk_SetAllCashEarned((double)fp); return Ok("Cash earned set");
-    case 22: Mk_SetAllOwner(ip); return Ok("Owner set");
-    case 23: Mk_SetAllSelectable(ip!=0); return Ok("Selectable set");
-    case 24: Mk_DeleteAll(); return Ok("All towers deleted");
-    case 25: Mk_LockHeroPurchases(); return Ok("Lock hero toggled");
-    case 26: Mk_LockTowerPurchases(); return Ok("Lock tower toggled");
-    case 27: Mk_AutoAbility(); return Ok("Auto ability toggled");
-    case 28: Mk_FreeTowers(); return Ok("Free towers toggled");
-    case 29: Mk_SetAllWeaponCDZero(); return Ok("All weapon CDs zeroed");
-    case 30: Mk_AbilitiesChanged(); return Ok("Abilities changed notified");
-    case 40: Mk_TowerSell(ip); return Ok("Tower sold");
-    case 41: Mk_TowerSetWorth(ip,(double)fp); return Ok("Tower worth set");
-    case 42: Mk_TowerSetDmg(ip,(double)fp); return Ok("Tower dmg set");
-    case 43: Mk_TowerClearCD(ip); return Ok("Tower CD cleared");
-    case 44: Mk_TowerActivateAbility(ip); return Ok("Tower ability activated");
-    case 45: Mk_TowerDisableWeapons(ip); return Ok("Tower weapons disabled");
-    case 46: Mk_TowerEnableWeapons(ip); return Ok("Tower weapons enabled");
-    case 47: Mk_TowerSetWeaponRate(ip,fp); return Ok("Tower weapon rate set");
-    case 48: Mk_TowerSetSelectable(ip,(int)fp!=0); return Ok("Tower selectable set");
-    case 49: Mk_TowerDestroy(ip); return Ok("Tower destroyed");
-    case 50: return Ok(FmtTower(ip).c_str());
-    case 51: return Ok(FmtTowers(ip).c_str());
-    case 31: Mk_TowerUpgrade(ip); return Ok("Tower upgraded");
-    case 32: Mk_TowerAddCash(ip,(double)fp); return Ok("Tower cash added");
-    case 33: Mk_TowerSetTarget(ip,(int)fp); return Ok("Tower target set");
-    case 34: Mk_SpawnAllDarts(); return Ok("All darts spawned");
-    case 35: Mk_UpgradeParagon(ip); return Ok("Paragon upgraded");
-    case 36: Mk_TowerMgrSell(ip); return Ok("Tower mgr sold");
-    case 37: Mk_TowerMgrDestroy(ip); return Ok("Tower mgr destroyed");
-    case 38: Mk_TowerSellDirect(ip); return Ok("Tower sold direct");
-    default: return Ok("Unknown monkey cmd");
-    }
-}
-static ResponsePacket HandleValue(uint32_t fn, int ip, float fp) {
-    switch(fn) {
-    case 1: V_SetCash((double)ip); return Ok("Cash set");
-    case 2: V_AddCash((double)ip); return Ok("Cash added");
-    case 3: V_InfiniteCash(); return Ok("Infinite cash toggled");
-    case 4: V_SetHealth(fp); return Ok("Health set");
-    case 5: V_SetHealthDirect(fp); return Ok("Health direct set");
-    case 6: V_InfiniteHealth(); return Ok("Infinite health toggled");
-    case 7: V_ResetHealth(); return Ok("Health reset");
-    case 8: V_InfiniteHealthMode(); return Ok("Infinite health mode");
-    case 9: V_SetMaxHealth(fp); return Ok("Max health set");
-    case 10: V_SetShield(fp); return Ok("Shield set");
-    case 11: V_SetRevives(ip); return Ok("Revives set");
-    case 12: V_TakeDmg(fp); return Ok("Damage taken");
-    case 13: V_DoubleCash(); return Ok("Double cash toggled");
-    case 14: V_NoLivesLost(); return Ok("No lives lost toggled");
-    case 15: V_SetCashSpent((double)ip); return Ok("Cash spent set");
-    case 16: V_HasCashChanged(ip!=0); return Ok("Cash changed flag set");
-    case 17: V_HasHealthChanged(ip!=0); return Ok("Health changed flag set");
-    case 18: V_SetBloonOverride(ip); return Ok("Bloon override set");
-    case 19: V_GodMode(); return Ok("God mode toggled");
-    case 20: V_DebugOptions(); return Ok("Debug options toggled");
-    case 21: V_SetTierCount(ip); return Ok("Tier count set");
-    case 22: V_RemoveCash((double)ip); return Ok("Cash removed");
-    case 23: V_AddCashBridge((double)ip); return Ok("Cash added (bridge)");
-    case 24: V_SetCashBridge((double)ip); return Ok("Cash set (bridge)");
-    case 25: V_SendCash(ip); return Ok("Cash sent");
-    case 26: V_AddSharedCash((double)ip); return Ok("Shared cash added");
-    case 27: V_CheatSetHealth(fp); return Ok("Health cheat set");
-    case 28: V_SetStartingHealth(fp); return Ok("Starting health set");
-    case 29: V_SetSoftcapMod(fp); return Ok("Softcap mod set");
-    case 30: return Ok(FmtSim().c_str());
-    case 31: return Ok(FmtIG().c_str());
-    case 32: V_SetMaxShield(fp); return Ok("Max shield set");
-    default: return Ok("Unknown value cmd");
-    }
-}
-static ResponsePacket HandleWorld(uint32_t fn, int ip, float fp) {
-    switch(fn) {
-    case 1: W_DestroyAllBloons(); return Ok("All bloons destroyed");
-    case 2: W_DestroyAllBloonsIG(); return Ok("Bloons deleted (IG)");
-    case 3: W_DestroyAllProjectiles(); return Ok("Projectiles destroyed");
-    case 4: W_ClearBloons(); return Ok("Bloons cleared");
-    case 5: W_StartRound(); return Ok("Round started (sim)");
-    case 6: W_StartRoundBridge(); return Ok("Round started (bridge)");
-    case 7: W_SetRound(ip); return Ok("Round set");
-    case 8: W_SetEndRound(ip); return Ok("End round set");
-    case 9: W_ResetRound(); return Ok("Round reset");
-    case 10: W_AutoPlay(); return Ok("Auto play toggled");
-    case 11: W_BlockAutoPlay(); return Ok("Block auto play toggled");
-    case 12: W_PauseAutoPlay(); return Ok("Pause auto play toggled");
-    case 13: W_Sandbox(); return Ok("Sandbox toggled");
-    case 14: W_FreezeSpawner(); return Ok("Spawner freeze toggled");
-    case 15: W_SetSpawnerRound(ip); return Ok("Spawner round set");
-    case 16: W_SetBloonHP(fp); return Ok("Bloon HP set");
-    case 17: W_DamageAllBloons(fp); return Ok("Bloons damaged");
-    case 18: W_KillAllBloons(); return Ok("All bloons killed");
-    case 19: W_SetBloonDistance(fp); return Ok("Bloon distance set");
-    case 20: W_BloonMaxDistance(); return Ok("Bloons at exit");
-    case 21: W_SetRoundMutators(ip); return Ok("Round mutators set");
-    case 22: W_Victory(); return Ok("Victory set");
-    case 23: W_Defeat(); return Ok("Defeat set");
-    case 24: W_Win(); return Ok("Win (bridge)");
-    case 25: W_Restart(); return Ok("Restarted");
-    case 26: W_QuickRestart(); return Ok("Quick restarted");
-    case 27: W_StartFreePlay(); return Ok("Free play started");
-    case 28: W_ForceDefeat(); return Ok("Forced defeat");
-    case 29: W_Continue(); return Ok("Continued");
-    case 30: W_StopClock(); return Ok("Clock stopped");
-    case 31: W_ResumeClock(); return Ok("Clock resumed");
-    case 32: W_FastForward(); return Ok("Fast forward toggled");
-    case 33: W_CheatSetRound(ip); return Ok("Round cheat set");
-    case 34: W_SetMatchWon(ip!=0); return Ok("Match won set");
-    case 35: W_SetMatchLost(ip!=0); return Ok("Match lost set");
-    case 36: W_SetGameStarted(ip!=0); return Ok("Game started set");
-    case 37: W_SetGameLost(ip!=0); return Ok("Game lost set");
-    case 38: W_SetGameWon(ip!=0); return Ok("Game won set");
-    case 39: W_Quit(); return Ok("Quit called");
-    case 40: W_SpawnerStart(); return Ok("Spawner started");
-    case 41: W_SpawnerSetRound(ip); return Ok("Spawner round set");
-    case 42: W_OnVictory(); return Ok("On victory called");
-    case 43: W_BloonMgrDamage(ip); return Ok("Bloon mgr damage");
-    case 44: W_BloonMgrDestroy(ip); return Ok("Bloon mgr destroy");
-    case 45: W_SetMatchJustWon(ip!=0); return Ok("Match just won set");
-    case 50: return Ok(FmtBloons(ip).c_str());
-    case 51: return Ok(FmtOverview().c_str());
-    default: return Ok("Unknown world cmd");
-    }
-}
-static ResponsePacket HandleMisc(uint32_t fn, int ip, float fp) {
-    switch(fn) {
-    case 1: X_InfinitePierce(); return Ok("Infinite pierce toggled");
-    case 2: X_MaxDamage(); return Ok("Max damage toggled");
-    case 3: X_SetShowCancel(ip); return Ok("Show cancel set");
-    case 4: X_SetEndRoundTime(fp); return Ok("End round time set");
-    case 5: X_CanEarnXP(ip!=0); return Ok("Can earn XP set");
-    case 6: X_SetPlayBtnDisabled(ip!=0); return Ok("Play btn disabled set");
-    case 7: X_SetMapEditorSandbox(ip!=0); return Ok("Map editor sandbox set");
-    case 8: X_FlushProcess(); return Ok("Process flushed");
-    case 9: X_SetTakenLeakDmg(ip!=0); return Ok("Leak damage flag set");
-    case 10: X_BloonAt_SetHP(ip,fp); return Ok("Bloon HP set");
-    case 11: X_BloonAt_Destroy(ip); return Ok("Bloon destroyed");
-    case 12: X_BloonAt_SetDist(ip,fp); return Ok("Bloon distance set");
-    case 13: X_BloonDamage(ip,fp); return Ok("Bloon damaged (RVA)");
-    case 14: X_BloonLeak(ip); return Ok("Bloon leaked");
-    case 15: X_BloonResetHP(ip); return Ok("Bloon HP reset");
-    case 16: X_BloonSetHPRVA(ip,fp); return Ok("Bloon HP set (RVA)");
-    case 17: X_WeaponSpawnDart(ip); return Ok("Darts spawned");
-    case 18: X_WeaponSetEnabled(ip,(int)fp!=0); return Ok("Weapon enabled set");
-    case 19: X_AbilitySetCD(ip,fp); return Ok("Ability CD set (RVA)");
-    case 20: return Ok(FmtBloon(ip).c_str());
-    case 21: return Ok(FmtTower(ip).c_str());
-    case 22: X_AbilityClearCD(ip); return Ok("Ability CD cleared (RVA)");
-    case 23: X_SetMaxHealthIncrease(fp); return Ok("Max health increase set");
-    case 24: X_SetStartingRevives(ip); return Ok("Starting revives set");
-    default: return Ok("Unknown misc cmd");
-    }
-}
-static ResponsePacket Execute(const CommandPacket& cmd) {
-    switch((CommandTab)cmd.tab) {
-    case TAB_MONKEY: return HandleMonkey(cmd.function,cmd.intParam,cmd.floatParam);
-    case TAB_VALUE: return HandleValue(cmd.function,cmd.intParam,cmd.floatParam);
-    case TAB_WORLD: return HandleWorld(cmd.function,cmd.intParam,cmd.floatParam);
-    case TAB_MISC: return HandleMisc(cmd.function,cmd.intParam,cmd.floatParam);
-    case TAB_SYSTEM:
-        switch((SystemCmd)cmd.function) {
-        case SYS_GET_STATE: return Ok("");
-        case SYS_PING: return Ok("pong");
-        case SYS_EXIT: return Ok("bye");
-        default: return Ok("Unknown sys");
-        }
-    default: return Ok("Unknown tab");
-    }
-}
-static std::atomic<bool> g_run{true};
-static void PipeServer() {
-    while(g_run) {
-        HANDLE hp = CreateNamedPipeW(PIPE_NAME,PIPE_ACCESS_DUPLEX,
-            PIPE_TYPE_MESSAGE|PIPE_READMODE_MESSAGE|PIPE_WAIT,1,
-            sizeof(ResponsePacket),sizeof(CommandPacket),0,nullptr);
-        if(hp==INVALID_HANDLE_VALUE) { Sleep(1000); continue; }
-        BOOL conn = ConnectNamedPipe(hp,nullptr) ? TRUE : (GetLastError()==ERROR_PIPE_CONNECTED);
-        if(conn) {
-            while(g_run) {
-                CommandPacket cmd={}; DWORD br=0;
-                if(!ReadFile(hp,&cmd,sizeof(cmd),&br,nullptr)||br!=sizeof(cmd)) break;
-                if(cmd.tab==TAB_SYSTEM&&cmd.function==SYS_EXIT) {
-                    auto r=Execute(cmd); DWORD bw=0;
-                    WriteFile(hp,&r,sizeof(r),&bw,nullptr); FlushFileBuffers(hp); break;
-                }
-                auto r=Execute(cmd); DWORD bw=0;
-                if(!WriteFile(hp,&r,sizeof(r),&bw,nullptr)) break;
-                FlushFileBuffers(hp);
-            }
-        }
-        DisconnectNamedPipe(hp); CloseHandle(hp);
-    }
-}
-static void UpdateLoop() {
-    while(true) {
-        Sleep(100);
-        auto& s=S();
-        uintptr_t sim=GetSim();
-        if(!sim) continue;
-        if(s.infiniteCash) ((void(*)(void*,double,int,void*))(Base+RVA::Sim::SetCash))((void*)sim,9999999.0,-1,nullptr);
-        if(s.infiniteHealth) ((void(*)(void*,float,bool,void*))(Base+RVA::Sim::SetHealth))((void*)sim,99999.f,true,nullptr);
-        if(s.godMode) { ((void(*)(void*,float,bool,void*))(Base+RVA::Sim::SetHealth))((void*)sim,99999.f,true,nullptr); ((void(*)(void*,float,void*))(Base+RVA::Sim::set_Shield))((void*)sim,99999.f,nullptr); }
-        if(s.instantCooldowns) Write<bool>(sim+Simulation::InstantCooldowns,true);
-        if(s.pauseWeapons) Write<bool>(sim+Simulation::PauseWeapons,true);
-        if(s.debugOptions) Write<bool>(sim+Simulation::DebugOptions,true);
-        if(s.autoPlay) Write<bool>(sim+Simulation::AutoPlay,true);
-        if(s.freeTowers) ((void(*)(void*,double,int,void*))(Base+RVA::Sim::SetCash))((void*)sim,9999999.0,-1,nullptr);
-        if(s.autoAbility) ForAllAbilities([](uintptr_t a) {
-            if(Read<float>(a+Ability::Cooldown)<=0 && Read<bool>(a+Ability::CanActivate))
-                ((void(*)(void*,void*))(Base+RVA::AbilityR::Activate))((void*)a,nullptr);
-        });
-        if(s.freezeSpawner) { uintptr_t sp=GetSpawner(); if(sp) Write<bool>(sp+SpawnerObj::IsPaused,true); }
-        if(s.noLivesLost) Write<bool>(sim+Simulation::NoLivesLost,true);
-        if(s.infinitePierce) ForAllWeapons([](uintptr_t) {});
-        if(s.maxDamage) ForAllWeapons([](uintptr_t w) { Write<float>(w+Weapon::Rate,0.01f); });
-    }
-}
-static DWORD WINAPI MainThread(LPVOID hMod) {
-    int w=0;
-    while(!GetModuleHandleA("GameAssembly.dll")) { Sleep(500); if(++w>60) { FreeLibraryAndExitThread((HMODULE)hMod,0); return 0; } }
-    Sleep(2000);
-    if(!GameInit()) { FreeLibraryAndExitThread((HMODULE)hMod,0); return 0; }
-    std::thread(UpdateLoop).detach();
-    PipeServer();
-    FreeLibraryAndExitThread((HMODULE)hMod,0);
-    return 0;
-}
-BOOL APIENTRY DllMain(HMODULE hMod, DWORD reason, LPVOID) {
-    if(reason==DLL_PROCESS_ATTACH) {
-        DisableThreadLibraryCalls(hMod);
-        HANDLE h=CreateThread(nullptr,0,MainThread,hMod,0,nullptr);
-        if(h) CloseHandle(h);
-    }
-    return TRUE;
-}
+using namespace _N;
+static void* _g_igc=nullptr;
+struct _Sx{bool _a0=0,_a1=0,_a2=0,_a3=0,_a4=0,_a5=0,_a6=0,_a7=0,_a8=0,_a9=0,_aA=0,_aB=0,_aC=0,_aD=0,_aE=0,_aF=0,_aG=0,_aH=0,_aI=0,_aJ=0;};
+static _Sx& _gs0(){static _Sx _s;return _s;}
+static bool _gi0(){if(!_N::_ii())return 0;_g_igc=_N::_ffc("",_D(6,0xE2u,0xC5u,0xECu,0xCAu,0xC6u,0xCEu));if(!_g_igc)_g_igc=_N::_ffc(_D(34,0xEAu,0xD8u,0xD8u,0xCEu,0xDFu,0xD8u,0x85u,0xF8u,0xC8u,0xD9u,0xC2u,0xDBu,0xDFu,0xD8u,0x85u,0xFEu,0xC5u,0xC2u,0xDFu,0xD2u,0x85u,0xFEu,0xE2u,0xF4u,0xE5u,0xCEu,0xDCu,0x85u,0xE2u,0xC5u,0xECu,0xCAu,0xC6u,0xCEu),_D(6,0xE2u,0xC5u,0xECu,0xCAu,0xC6u,0xCEu));return _g_igc!=nullptr;}
+static uintptr_t _g0(){return _g_igc?(uintptr_t)_N::_gs<void*>(_g_igc,_D(8,0xC2u,0xC5u,0xD8u,0xDFu,0xCAu,0xC5u,0xC8u,0xCEu)):0;}
+static uintptr_t _g1(){uintptr_t _x=_g0();return(_x&&_vp(_x))?_r<uintptr_t>(_x+InGame::Bridge):0;}
+static uintptr_t _g2(){uintptr_t _x=_g1();return(_x&&_vp(_x))?_r<uintptr_t>(_x+UnityToSim::SimPtr):0;}
+static uintptr_t _g3(){uintptr_t _x=_g2();return(_x&&_vp(_x))?_r<uintptr_t>(_x+Simulation::TowerManager):0;}
+static uintptr_t _g4(){uintptr_t _x=_g2();return(_x&&_vp(_x))?_r<uintptr_t>(_x+Simulation::BloonManager):0;}
+static uintptr_t _g5(){uintptr_t _x=_g2();return(_x&&_vp(_x))?_r<uintptr_t>(_x+Simulation::MapPtr):0;}
+static uintptr_t _g6(){uintptr_t _x=_g5();return(_x&&_vp(_x))?_r<uintptr_t>(_x+MapObj::Spawner):0;}
+template<typename F>static void _ft(F _fn){uintptr_t _tm=_g3();if(!_tm)return;uintptr_t _l=_r<uintptr_t>(_tm+TowerMgr::Towers);int _c=_lc(_l);for(int _i=0;_i<_c;_i++){uintptr_t _t=_li(_l,_i);if(_t&&_vp(_t))_fn(_t);}}
+template<typename F>static void _fb(F _fn){uintptr_t _bm=_g4();if(!_bm)return;uintptr_t _l=_r<uintptr_t>(_bm+BloonMgr::Bloons);int _c=_lc(_l);for(int _i=0;_i<_c;_i++){uintptr_t _b=_li(_l,_i);if(_b&&_vp(_b))_fn(_b);}}
+template<typename F>static void _fa(uintptr_t _t,F _fn){uintptr_t _l=_r<uintptr_t>(_t+Tower::Abilities);int _c=_lc(_l);for(int _i=0;_i<_c;_i++){uintptr_t _a=_li(_l,_i);if(_a&&_vp(_a))_fn(_a);}}
+template<typename F>static void _fw(uintptr_t _t,F _fn){uintptr_t _l=_r<uintptr_t>(_t+Tower::Weapons);int _c=_lc(_l);for(int _i=0;_i<_c;_i++){uintptr_t _w=_li(_l,_i);if(_w&&_vp(_w))_fn(_w);}}
+template<typename F>static void _faa(F _fn){_ft([&_fn](uintptr_t _t){_fa(_t,_fn);});}
+template<typename F>static void _faw(F _fn){_ft([&_fn](uintptr_t _t){_fw(_t,_fn);});}
+static int _tc(){uintptr_t _tm=_g3();return _tm?_lc(_r<uintptr_t>(_tm+TowerMgr::Towers)):0;}
+static int _bc(){uintptr_t _bm=_g4();return _bm?_lc(_r<uintptr_t>(_bm+BloonMgr::Bloons)):0;}
+static uintptr_t _ta(int _i){uintptr_t _tm=_g3();return _tm?_li(_r<uintptr_t>(_tm+TowerMgr::Towers),_i):0;}
+static uintptr_t _ba(int _i){uintptr_t _bm=_g4();return _bm?_li(_r<uintptr_t>(_bm+BloonMgr::Bloons),_i):0;}
+static void _m00(){uintptr_t _b=_g1();if(_b)((void(*)(void*,void*))(_B+RVA::BridgeR::SellAllTowers))((void*)_b,nullptr);}
+static void _m01(){uintptr_t _b=_g1();if(_b)((void(*)(void*,void*))(_B+RVA::BridgeR::SellAllProps))((void*)_b,nullptr);}
+static void _m02(){uintptr_t _b=_g1();if(_b)((void(*)(void*,void*))(_B+RVA::BridgeR::ResetAbilityCooldowns))((void*)_b,nullptr);}
+static void _m03(){_faa([](uintptr_t _a){_w<float>(_a+Ability::Cooldown,0);});}
+static void _m04(){_faa([](uintptr_t _a){((void(*)(void*,void*))(_B+RVA::AbilityR::Activate))((void*)_a,nullptr);});}
+static void _m05(){_faa([](uintptr_t _a){((void(*)(void*,void*))(_B+RVA::AbilityR::Deactivate))((void*)_a,nullptr);});}
+static void _m06(){auto& _s=_gs0();_s._a3=!_s._a3;uintptr_t _sm=_g2();if(_sm)_w<bool>(_sm+Simulation::PauseWeapons,_s._a3);}
+static void _m07(){auto& _s=_gs0();_s._a2=!_s._a2;uintptr_t _sm=_g2();if(_sm)_w<bool>(_sm+Simulation::InstantCooldowns,_s._a2);}
+static void _m08(){uintptr_t _b=_g1();if(_b)((void(*)(void*,void*))(_B+RVA::BridgeR::ToggleWeapons))((void*)_b,nullptr);}
+static void _m09(float _r){_faw([_r](uintptr_t _w0){_w<float>(_w0+Weapon::Rate,_r);});}
+static void _m10(float _c){_faw([_c](uintptr_t _w0){_w<float>(_w0+Weapon::Cooldown,_c);});}
+static void _m11(){_faw([](uintptr_t _w0){_w<bool>(_w0+Weapon::Enabled,true);});}
+static void _m12(){_faw([](uintptr_t _w0){_w<bool>(_w0+Weapon::Enabled,false);});}
+static void _m13(double _v){_ft([_v](uintptr_t _t){_w<double>(_t+Tower::Worth,_v);});}
+static void _m14(double _v){_ft([_v](uintptr_t _t){_w<double>(_t+Tower::DamageDealt,_v);});}
+static void _m15(){uintptr_t _b=_g1();if(_b)((void(*)(void*,void*))(_B+RVA::BridgeR::ResetDamages))((void*)_b,nullptr);}
+static void _m16(){uintptr_t _b=_g1();if(_b)((void(*)(void*,void*))(_B+RVA::BridgeR::MaxGeraldoStock))((void*)_b,nullptr);}
+static void _m17(float _c){_faa([_c](uintptr_t _a){_w<float>(_a+Ability::Cooldown,_c);});}
+static void _m18(float _c){_faa([_c](uintptr_t _a){_w<float>(_a+Ability::CooldownMax,_c);});}
+static void _m19(){_faa([](uintptr_t _a){_w<float>(_a+Ability::Cooldown,0);_w<bool>(_a+Ability::CanActivate,true);});}
+static void _m20(double _v){_ft([_v](uintptr_t _t){_w<double>(_t+Tower::CashEarned,_v);});}
+static void _m21(int _o){_ft([_o](uintptr_t _t){_w<int>(_t+Tower::Owner,_o);});}
+static void _m22(bool _v){_ft([_v](uintptr_t _t){_w<bool>(_t+Tower::IsSelectable,_v);});}
+static void _m23(){uintptr_t _ig=_g0();if(_ig)((void(*)(void*,void*))(_B+RVA::InGameR::DeleteAllTowers))((void*)_ig,nullptr);}
+static void _m24(){auto& _s=_gs0();_s._a9=!_s._a9;uintptr_t _sm=_g2();if(_sm)((void(*)(void*,bool,void*))(_B+RVA::Sim::LockHeroPurchases))((void*)_sm,_s._a9,nullptr);}
+static void _m25(){auto& _s=_gs0();_s._aA=!_s._aA;uintptr_t _sm=_g2();if(_sm)((void(*)(void*,bool,void*))(_B+RVA::Sim::LockTowerPurchases))((void*)_sm,_s._aA,nullptr);}
+static void _m26(){auto& _s=_gs0();_s._aB=!_s._aB;}
+static void _m27(){auto& _s=_gs0();_s._a8=!_s._a8;}
+static void _m28(){_faw([](uintptr_t _w0){_w<float>(_w0+Weapon::Cooldown,0);});}
+static void _m29(){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,void*))(_B+RVA::Sim::AbilitiesChanged))((void*)_sm,nullptr);}
+static void _m30(int _i){uintptr_t _t=_ta(_i);if(_t){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,void*,int,void*))(_B+RVA::Sim::SellTower))((void*)_sm,(void*)_t,0,nullptr);}}
+static void _m31(int _i,double _v){uintptr_t _t=_ta(_i);if(_t)_w<double>(_t+Tower::Worth,_v);}
+static void _m32(int _i,double _v){uintptr_t _t=_ta(_i);if(_t)_w<double>(_t+Tower::DamageDealt,_v);}
+static void _m33(int _i){uintptr_t _t=_ta(_i);if(_t)_fa(_t,[](uintptr_t _a){_w<float>(_a+Ability::Cooldown,0);_w<bool>(_a+Ability::CanActivate,true);});}
+static void _m34(int _i){uintptr_t _t=_ta(_i);if(_t)_fa(_t,[](uintptr_t _a){((void(*)(void*,void*))(_B+RVA::AbilityR::Activate))((void*)_a,nullptr);});}
+static void _m35(int _i){uintptr_t _t=_ta(_i);if(_t)_fw(_t,[](uintptr_t _w0){_w<bool>(_w0+Weapon::Enabled,false);});}
+static void _m36(int _i){uintptr_t _t=_ta(_i);if(_t)_fw(_t,[](uintptr_t _w0){_w<bool>(_w0+Weapon::Enabled,true);});}
+static void _m37(int _i,float _r){uintptr_t _t=_ta(_i);if(_t)_fw(_t,[_r](uintptr_t _w0){_w<float>(_w0+Weapon::Rate,_r);});}
+static void _m38(int _i,bool _v){uintptr_t _t=_ta(_i);if(_t)_w<bool>(_t+Tower::IsSelectable,_v);}
+static void _m39(int _i){uintptr_t _t=_ta(_i);if(_t)((void(*)(void*,void*))(_B+RVA::TowerR::Destroy))((void*)_t,nullptr);}
+static void _m40(){_faa([](uintptr_t _a){_w<float>(_a+Ability::Cooldown,0);_w<bool>(_a+Ability::CanActivate,true);});}
+static void _m41(int _i){uintptr_t _t=_ta(_i);if(_t)((void(*)(void*,void*))(_B+RVA::TowerR::Upgrade))((void*)_t,nullptr);}
+static void _m42(int _i,double _v){uintptr_t _t=_ta(_i);if(_t)((void(*)(void*,double,void*))(_B+RVA::TowerR::AddCash))((void*)_t,_v,nullptr);}
+static void _m43(int _i,int _tp){uintptr_t _t=_ta(_i);if(_t)((void(*)(void*,int,void*))(_B+RVA::TowerR::SetTargetType))((void*)_t,_tp,nullptr);}
+static void _m44(){_faw([](uintptr_t _w0){((void(*)(void*,void*))(_B+RVA::WeaponR::SpawnDart))((void*)_w0,nullptr);});}
+static void _m45(int _i){uintptr_t _t=_ta(_i);if(!_t)return;uintptr_t _tm=_g3();if(_tm)((void(*)(void*,void*,void*))(_B+RVA::TowerMgrR::UpgradeTowerParagon))((void*)_tm,(void*)_t,nullptr);}
+static void _m46(int _i){uintptr_t _t=_ta(_i);if(!_t)return;uintptr_t _tm=_g3();if(_tm)((void(*)(void*,void*,void*))(_B+RVA::TowerMgrR::SellTower))((void*)_tm,(void*)_t,nullptr);}
+static void _m47(int _i){uintptr_t _t=_ta(_i);if(!_t)return;uintptr_t _tm=_g3();if(_tm)((void(*)(void*,void*,void*))(_B+RVA::TowerMgrR::DestroyTower))((void*)_tm,(void*)_t,nullptr);}
+static void _m48(int _i){uintptr_t _t=_ta(_i);if(_t)((void(*)(void*,void*))(_B+RVA::TowerR::Sell))((void*)_t,nullptr);}
+static void _v00(double _c){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,double,int,void*))(_B+RVA::Sim::SetCash))((void*)_sm,_c,-1,nullptr);}
+static void _v01(double _c){uintptr_t _ig=_g0();if(_ig)((void(*)(void*,double,void*))(_B+RVA::InGameR::CheatSetCash))((void*)_ig,_c,nullptr);}
+static void _v02(){auto& _s=_gs0();_s._a0=!_s._a0;}
+static void _v03(float _h){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,float,bool,void*))(_B+RVA::Sim::SetHealth))((void*)_sm,_h,false,nullptr);}
+static void _v04(float _h){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,float,void*))(_B+RVA::Sim::set_Health))((void*)_sm,_h,nullptr);}
+static void _v05(){auto& _s=_gs0();_s._a1=!_s._a1;}
+static void _v06(){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,void*))(_B+RVA::Sim::ResetHealth))((void*)_sm,nullptr);}
+static void _v07(){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,void*))(_B+RVA::Sim::ResetToInfinitHealth))((void*)_sm,nullptr);}
+static void _v08(float _h){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,float,void*))(_B+RVA::Sim::set_MaxHealth))((void*)_sm,_h,nullptr);}
+static void _v09(float _v){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,float,void*))(_B+RVA::Sim::set_Shield))((void*)_sm,_v,nullptr);}
+static void _v10(int _v){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,int,void*))(_B+RVA::Sim::set_Revives))((void*)_sm,_v,nullptr);}
+static void _v11(float _d){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,float,void*))(_B+RVA::Sim::TakeDamage))((void*)_sm,_d,nullptr);}
+static void _v12(){auto& _s=_gs0();_s._aF=!_s._aF;}
+static void _v13(){auto& _s=_gs0();_s._aG=!_s._aG;uintptr_t _sm=_g2();if(_sm)_w<bool>(_sm+Simulation::NoLivesLost,_s._aG);}
+static void _v14(double _v){uintptr_t _sm=_g2();if(_sm)_w<double>(_sm+Simulation::CashSpent,_v);}
+static void _v15(bool _v){uintptr_t _sm=_g2();if(_sm)_w<bool>(_sm+Simulation::HasCashChanged,_v);}
+static void _v16(bool _v){uintptr_t _sm=_g2();if(_sm)_w<bool>(_sm+Simulation::HasHealthChanged,_v);}
+static void _v17(int _v){uintptr_t _sm=_g2();if(_sm)_w<int>(_sm+Simulation::BloonLivesLostOverride,_v);}
+static void _v18(){auto& _s=_gs0();_s._aE=!_s._aE;}
+static void _v19(){auto& _s=_gs0();_s._a4=!_s._a4;uintptr_t _sm=_g2();if(_sm)_w<bool>(_sm+Simulation::DebugOptions,_s._a4);}
+static void _v20(int _v){uintptr_t _sm=_g2();if(_sm)_w<int>(_sm+Simulation::CachedTierCount,_v);}
+static void _v21(double _c){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,double,int,void*))(_B+RVA::Sim::RemoveCash))((void*)_sm,_c,-1,nullptr);}
+static void _v22(double _c){uintptr_t _br=_g1();if(_br)((void(*)(void*,double,int,void*))(_B+RVA::BridgeR::AddCash))((void*)_br,_c,-1,nullptr);}
+static void _v23(double _c){uintptr_t _br=_g1();if(_br)((void(*)(void*,double,int,void*))(_B+RVA::BridgeR::SetCash))((void*)_br,_c,-1,nullptr);}
+static void _v24(int _p){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,int,double,void*))(_B+RVA::Sim::SendCash))((void*)_sm,_p,1000.0,nullptr);}
+static void _v25(double _c){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,double,void*))(_B+RVA::Sim::AddSharedCash))((void*)_sm,_c,nullptr);}
+static void _v26(float _h){uintptr_t _ig=_g0();if(_ig)((void(*)(void*,float,void*))(_B+RVA::InGameR::CheatSetHealth))((void*)_ig,_h,nullptr);}
+static void _v27(float _v){uintptr_t _sm=_g2();if(_sm)_w<float>(_sm+Simulation::StartingHealth,_v);}
+static void _v28(float _v){uintptr_t _sm=_g2();if(_sm)_w<float>(_sm+Simulation::SoftcapPctMod,_v);}
+static void _v29(float _v){uintptr_t _sm=_g2();if(_sm)_w<float>(_sm+Simulation::MaxShield,_v);}
+static void _w00(){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,void*))(_B+RVA::Sim::DestroyAllBloons))((void*)_sm,nullptr);}
+static void _w01(){uintptr_t _ig=_g0();if(_ig)((void(*)(void*,void*))(_B+RVA::InGameR::DeleteAllBloons))((void*)_ig,nullptr);}
+static void _w02(){uintptr_t _br=_g1();if(_br)((void(*)(void*,void*))(_B+RVA::BridgeR::DestroyAllProjectiles))((void*)_br,nullptr);}
+static void _w03(){uintptr_t _br=_g1();if(_br)((void(*)(void*,void*))(_B+RVA::BridgeR::ClearBloons))((void*)_br,nullptr);}
+static void _w04(){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,void*))(_B+RVA::Sim::StartRound))((void*)_sm,nullptr);}
+static void _w05(){uintptr_t _br=_g1();if(_br)((void(*)(void*,void*))(_B+RVA::BridgeR::StartRound))((void*)_br,nullptr);}
+static void _w06(int _r){uintptr_t _br=_g1();if(_br)((void(*)(void*,int,void*))(_B+RVA::BridgeR::SetRound))((void*)_br,_r,nullptr);}
+static void _w07(int _r){uintptr_t _br=_g1();if(_br)((void(*)(void*,int,void*))(_B+RVA::BridgeR::SetEndRound))((void*)_br,_r,nullptr);}
+static void _w08(){uintptr_t _br=_g1();if(_br)((void(*)(void*,void*))(_B+RVA::BridgeR::ResetRound))((void*)_br,nullptr);}
+static void _w09(){auto& _s=_gs0();_s._a6=!_s._a6;uintptr_t _sm=_g2();if(_sm)_w<bool>(_sm+Simulation::AutoPlay,_s._a6);}
+static void _w10(){auto& _s=_gs0();_s._a7=!_s._a7;uintptr_t _br=_g1();if(_br)((void(*)(void*,bool,void*))(_B+RVA::BridgeR::SetBlockAutoPlay))((void*)_br,_s._a7,nullptr);}
+static void _w11(){uintptr_t _sm=_g2();if(_sm)_w<bool>(_sm+Simulation::PauseAutoPlay,!_r<bool>(_sm+Simulation::PauseAutoPlay));}
+static void _w12(){auto& _s=_gs0();_s._a5=!_s._a5;uintptr_t _sm=_g2();if(_sm)((void(*)(void*,bool,void*))(_B+RVA::Sim::SetSandbox))((void*)_sm,_s._a5,nullptr);}
+static void _w13(){auto& _s=_gs0();_s._aC=!_s._aC;uintptr_t _sp=_g6();if(_sp)_w<bool>(_sp+SpawnerObj::IsPaused,_s._aC);}
+static void _w14(int _r){uintptr_t _sp=_g6();if(_sp)_w<int>(_sp+SpawnerObj::CurrentRound,_r);}
+static void _w15(float _h){_fb([_h](uintptr_t _b){_w<float>(_b+Bloon::Health,_h);});}
+static void _w16(float _d){_fb([_d](uintptr_t _b){float _h=_r<float>(_b+Bloon::Health);_w<float>(_b+Bloon::Health,_h>_d?_h-_d:0);});}
+static void _w17(){_fb([](uintptr_t _b){_w<float>(_b+Bloon::Health,0);});}
+static void _w18(float _d){_fb([_d](uintptr_t _b){_w<float>(_b+Bloon::DistanceTraveled,_d);});}
+static void _w19(){_fb([](uintptr_t _b){float _tot=_r<float>(_b+Bloon::TotalDistanceToExit);_w<float>(_b+Bloon::DistanceTraveled,_tot);});}
+static void _w20(int _r){uintptr_t _sm=_g2();if(_sm)((void(*)(void*,int,void*))(_B+RVA::Sim::SetRoundMutators))((void*)_sm,_r,nullptr);}
+static void _w21(){uintptr_t _sm=_g2();if(_sm)((bool(*)(void*,void*))(_B+RVA::Sim::SetVictory))((void*)_sm,nullptr);}
+static void _w22(){uintptr_t _sm=_g2();if(_sm)((bool(*)(void*,void*))(_B+RVA::Sim::SetDefeat))((void*)_sm,nullptr);}
+static void _w23(){uintptr_t _br=_g1();if(_br)((void(*)(void*,void*))(_B+RVA::BridgeR::Win))((void*)_br,nullptr);}
+static void _w24(){uintptr_t _ig=_g0();if(_ig)((void(*)(void*,void*))(_B+RVA::InGameR::Restart))((void*)_ig,nullptr);}
+static void _w25(){uintptr_t _ig=_g0();if(_ig)((void(*)(void*,void*))(_B+RVA::InGameR::QuickRestart))((void*)_ig,nullptr);}
+static void _w26(){uintptr_t _ig=_g0();if(_ig)((void(*)(void*,void*))(_B+RVA::InGameR::StartFreePlay))((void*)_ig,nullptr);}
+static void _w27(){uintptr_t _ig=_g0();if(_ig)((void(*)(void*,void*))(_B+RVA::InGameR::ForceDefeat))((void*)_ig,nullptr);}
+static void _w28(){uintptr_t _ig=_g0();if(_ig)((void(*)(void*,void*))(_B+RVA::InGameR::Continue))((void*)_ig,nullptr);}
+static void _w29(){uintptr_t _ig=_g0();if(_ig)((void(*)(void*,void*))(_B+RVA::InGameR::StopClock))((void*)_ig,nullptr);}
+static void _w30(){uintptr_t _ig=_g0();if(_ig)((void(*)(void*,void*))(_B+RVA::InGameR::ResumeClock))((void*)_ig,nullptr);}
+static void _w31(){auto& _s=_gs0();_s._aJ=!_s._aJ;uintptr_t _ig=_g0();if(_ig)((void(*)(void*,void*))(_B+RVA::InGameR::PlayFastForward))((void*)_ig,nullptr);}
+static void _w32(int _r){uintptr_t _ig=_g0();if(_ig)((void(*)(void*,int,void*))(_B+RVA::InGameR::CheatSetRound))((void*)_ig,_r,nullptr);}
+static void _w33(bool _v){uintptr_t _ig=_g0();if(_ig)_w<bool>(_ig+InGame::MatchWon,_v);}
+static void _w34(bool _v){uintptr_t _ig=_g0();if(_ig)_w<bool>(_ig+InGame::MatchLost,_v);}
+static void _w35(bool _v){uintptr_t _sm=_g2();if(_sm)_w<bool>(_sm+Simulation::GameStarted,_v);}
+static void _w36(bool _v){uintptr_t _sm=_g2();if(_sm)_w<bool>(_sm+Simulation::GameLost,_v);}
+static void _w37(bool _v){uintptr_t _sm=_g2();if(_sm)_w<bool>(_sm+Simulation::GameWon,_v);}
+static void _w38(){uintptr_t _ig=_g0();if(_ig)((void(*)(void*,void*))(_B+RVA::InGameR::Quit))((void*)_ig,nullptr);}
+static void _w39(){uintptr_t _sp=_g6();if(_sp)((void(*)(void*,void*))(_B+RVA::SpawnerR::StartRound))((void*)_sp,nullptr);}
+static void _w40(int _r){uintptr_t _sp=_g6();if(_sp)((void(*)(void*,int,void*))(_B+RVA::SpawnerR::SetRound))((void*)_sp,_r,nullptr);}
+static void _w41(){uintptr_t _ig=_g0();if(_ig)((void(*)(void*,void*))(_B+RVA::InGameR::OnVictory))((void*)_ig,nullptr);}
+static void _w42(int _i){uintptr_t _bm=_g4();uintptr_t _b=_ba(_i);if(_bm&&_b)((void(*)(void*,void*,void*))(_B+RVA::BloonMgrR::BloonDamage))((void*)_bm,(void*)_b,nullptr);}
+static void _w43(int _i){uintptr_t _bm=_g4();uintptr_t _b=_ba(_i);if(_bm&&_b)((void(*)(void*,void*,void*))(_B+RVA::BloonMgrR::BloonDestroy))((void*)_bm,(void*)_b,nullptr);}
+static void _w44(bool _v){uintptr_t _sm=_g2();if(_sm)_w<bool>(_sm+Simulation::MatchJustWon,_v);}
+static void _x00(){auto& _s=_gs0();_s._aH=!_s._aH;}
+static void _x01(){auto& _s=_gs0();_s._aI=!_s._aI;}
+static void _x02(int _v){uintptr_t _sm=_g2();if(_sm)_w<int>(_sm+Simulation::ShowCancel,_v);}
+static void _x03(float _v){uintptr_t _sm=_g2();if(_sm)_w<float>(_sm+Simulation::EndOnRoundAdditionalTime,_v);}
+static void _x04(bool _v){uintptr_t _sm=_g2();if(_sm)_w<bool>(_sm+Simulation::CanEarnXP,_v);}
+static void _x05(bool _v){uintptr_t _ig=_g0();if(_ig)_w<bool>(_ig+InGame::PlayBtnDisabled,_v);}
+static void _x06(bool _v){uintptr_t _ig=_g0();if(_ig)_w<bool>(_ig+InGame::MapEditorSandbox,_v);}
+static void _x07(int _i,float _h){uintptr_t _b=_ba(_i);if(_b)_w<float>(_b+Bloon::Health,_h);}
+static void _x08(int _i){uintptr_t _b=_ba(_i);if(_b)((void(*)(void*,void*))(_B+RVA::BloonR::Destroy))((void*)_b,nullptr);}
+static void _x09(int _i,float _d){uintptr_t _b=_ba(_i);if(_b)_w<float>(_b+Bloon::DistanceTraveled,_d);}
+static void _x10(int _i,float _d){uintptr_t _b=_ba(_i);if(_b)((void(*)(void*,float,void*))(_B+RVA::BloonR::Damage))((void*)_b,_d,nullptr);}
+static void _x11(int _i){uintptr_t _b=_ba(_i);if(_b)((void(*)(void*,void*))(_B+RVA::BloonR::Leaked))((void*)_b,nullptr);}
+static void _x12(int _i){uintptr_t _b=_ba(_i);if(_b)((void(*)(void*,void*))(_B+RVA::BloonR::ResetHealth))((void*)_b,nullptr);}
+static void _x13(int _i,float _h){uintptr_t _b=_ba(_i);if(_b)((void(*)(void*,float,void*))(_B+RVA::BloonR::SetHealth))((void*)_b,_h,nullptr);}
+static void _x14(int _ti){uintptr_t _t=_ta(_ti);if(_t)_fw(_t,[](uintptr_t _w0){((void(*)(void*,void*))(_B+RVA::WeaponR::SpawnDart))((void*)_w0,nullptr);});}
+static void _x15(int _ti,bool _v){uintptr_t _t=_ta(_ti);if(_t)_fw(_t,[_v](uintptr_t _w0){((void(*)(void*,bool,void*))(_B+RVA::WeaponR::SetEnabled))((void*)_w0,_v,nullptr);});}
+static void _x16(int _ti,float _cd){uintptr_t _t=_ta(_ti);if(_t)_fa(_t,[_cd](uintptr_t _a){((void(*)(void*,float,void*))(_B+RVA::AbilityR::SetCooldown))((void*)_a,_cd,nullptr);});}
+static void _x17(int _ti){uintptr_t _t=_ta(_ti);if(_t)_fa(_t,[](uintptr_t _a){((void(*)(void*,void*))(_B+RVA::AbilityR::ClearCooldown))((void*)_a,nullptr);});}
+static void _x18(float _v){uintptr_t _sm=_g2();if(_sm)_w<float>(_sm+Simulation::MaxHealthIncrease,_v);}
+static void _x19(int _v){uintptr_t _sm=_g2();if(_sm)_w<int>(_sm+Simulation::StartingRevives,_v);}
+static std::string _fmtT(int _idx){uintptr_t _t=_ta(_idx);if(!_t)return "?";std::ostringstream _ss;_ss<<"[T"<<_idx<<"]W:"<<std::fixed<<std::setprecision(0)<<_r<double>(_t+Tower::Worth)<<" D:"<<_r<double>(_t+Tower::DamageDealt)<<" $:"<<_r<double>(_t+Tower::CashEarned)<<" O:"<<_r<int>(_t+Tower::Owner)<<(_r<bool>(_t+Tower::IsSelectable)?"[S]":"")<<" W:"<<_lc(_r<uintptr_t>(_t+Tower::Weapons))<<" A:"<<_lc(_r<uintptr_t>(_t+Tower::Abilities));return _ss.str();}
+static std::string _fmtB(int _idx){uintptr_t _b=_ba(_idx);if(!_b)return "?";std::ostringstream _ss;_ss<<"[B"<<_idx<<"]HP:"<<std::fixed<<std::setprecision(1)<<_r<float>(_b+Bloon::Health)<<" D:"<<_r<float>(_b+Bloon::DistanceTraveled)<<"/"<<_r<float>(_b+Bloon::TotalDistanceToExit)<<(_r<bool>(_b+Bloon::IsBoss)?"[BOSS]":"");return _ss.str();}
+static std::string _fmtTs(int _pg){int _tot=_tc();std::ostringstream _ss;_ss<<"\n[Towers:"<<_tot<<"]\n";int _s=_pg*10,_e=_s+10;if(_e>_tot)_e=_tot;for(int _i=_s;_i<_e;_i++)_ss<<_fmtT(_i)<<"\n";if(_tot>_e)_ss<<"..."<<(_tot-_e)<<" more\n";return _ss.str();}
+static std::string _fmtBs(int _pg){int _tot=_bc();std::ostringstream _ss;_ss<<"\n[Bloons:"<<_tot<<"]\n";int _s=_pg*10,_e=_s+10;if(_e>_tot)_e=_tot;for(int _i=_s;_i<_e;_i++)_ss<<_fmtB(_i)<<"\n";if(_tot>_e)_ss<<"..."<<(_tot-_e)<<" more\n";return _ss.str();}
+static std::string _fmtSm(){uintptr_t _sm=_g2();if(!_sm)return "NoSim";std::ostringstream _ss;_ss<<"\n[Sim]T:"<<_tc()<<" B:"<<_bc()<<" Dbg:"<<(int)_r<bool>(_sm+Simulation::DebugOptions)<<" ICD:"<<(int)_r<bool>(_sm+Simulation::InstantCooldowns)<<" PWpn:"<<(int)_r<bool>(_sm+Simulation::PauseWeapons)<<"\nStd:"<<(int)_r<bool>(_sm+Simulation::GameStarted)<<" Won:"<<(int)_r<bool>(_sm+Simulation::GameWon)<<" Lst:"<<(int)_r<bool>(_sm+Simulation::GameLost)<<" AP:"<<(int)_r<bool>(_sm+Simulation::AutoPlay)<<"\nSbx:"<<(int)_r<bool>(_sm+Simulation::Sandbox)<<" NLL:"<<(int)_r<bool>(_sm+Simulation::NoLivesLost)<<" LkH:"<<(int)_r<bool>(_sm+Simulation::LockHeroPurchases)<<" LkT:"<<(int)_r<bool>(_sm+Simulation::LockTowerPurchases)<<"\n";return _ss.str();}
+static std::string _fmtIG(){uintptr_t _ig=_g0();if(!_ig)return "NoIG";std::ostringstream _ss;_ss<<"\n[InGame]MS:"<<(int)_r<bool>(_ig+InGame::MatchStarted)<<" MW:"<<(int)_r<bool>(_ig+InGame::MatchWon)<<" ML:"<<(int)_r<bool>(_ig+InGame::MatchLost)<<" PD:"<<(int)_r<bool>(_ig+InGame::PlayBtnDisabled)<<"\n";return _ss.str();}
+static std::string _fmtOv(){std::ostringstream _ss;_ss<<"\n[Ov]T:"<<_tc()<<" B:"<<_bc()<<"\n";uintptr_t _sm=_g2();if(_sm){_ss<<"Std:"<<(int)_r<bool>(_sm+Simulation::GameStarted)<<" W:"<<(int)_r<bool>(_sm+Simulation::GameWon)<<" L:"<<(int)_r<bool>(_sm+Simulation::GameLost)<<" AP:"<<(int)_r<bool>(_sm+Simulation::AutoPlay)<<" Sbx:"<<(int)_r<bool>(_sm+Simulation::Sandbox)<<"\n";}uintptr_t _sp=_g6();if(_sp)_ss<<"SpRd:"<<_r<int>(_sp+SpawnerObj::CurrentRound)<<" Ps:"<<(int)_r<bool>(_sp+SpawnerObj::IsPaused)<<"\n";return _ss.str();}
+static ToggleState _bs(){auto& _s=_gs0();ToggleState _t={};_t.infiniteCash=_s._a0;_t.infiniteHealth=_s._a1;_t.instantCooldowns=_s._a2;_t.pauseWeapons=_s._a3;_t.debugOptions=_s._a4;_t.sandbox=_s._a5;_t.autoPlay=_s._a6;_t.blockAutoPlay=_s._a7;_t.freeTowers=_s._a8;_t.lockHeroPurchases=_s._a9;_t.lockTowerPurchases=_s._aA;_t.autoAbility=_s._aB;_t.freezeSpawner=_s._aC;_t.godMode=_s._aE;_t.doubleCash=_s._aF;_t.noLivesLost=_s._aG;_t.infinitePierce=_s._aH;_t.maxDamage=_s._aI;_t.fastForward=_s._aJ;return _t;}
+static ResponsePacket _ok(const char* _m=""){ResponsePacket _r={};_r.success=1^0^0;_r.state=_bs();strncpy_s(_r.message,_m,RESPONSE_MSG_SIZE-1);return _r;}
+static ResponsePacket _hM(uint32_t _fn,int _ip,float _fp){switch(_fn){
+case 1:_m00();return _ok(_D(15,0xF8u,0xC4u,0xC7u,0xCFu,0x8Bu,0xCAu,0xC7u,0xC7u,0x8Bu,0xDFu,0xC4u,0xDCu,0xCEu,0xD9u,0xD8u));case 2:_m01();return _ok(_D(14,0xF8u,0xC4u,0xC7u,0xCFu,0x8Bu,0xCAu,0xC7u,0xC7u,0x8Bu,0xDBu,0xD9u,0xC4u,0xDBu,0xD8u));
+case 3:_m02();return _ok(_D(17,0xEAu,0xC9u,0xC2u,0xC7u,0xC2u,0xDFu,0xD2u,0x8Bu,0xE8u,0xEFu,0xD8u,0x8Bu,0xD9u,0xCEu,0xD8u,0xCEu,0xDFu));case 4:_m03();return _ok(_D(23,0xEAu,0xC7u,0xC7u,0x8Bu,0xCAu,0xC9u,0xC2u,0xC7u,0xC2u,0xDFu,0xD2u,0x8Bu,0xE8u,0xEFu,0xD8u,0x8Bu,0xC8u,0xC7u,0xCEu,0xCAu,0xD9u,0xCEu,0xCFu));
+case 5:_m04();return _ok(_D(23,0xEAu,0xC7u,0xC7u,0x8Bu,0xCAu,0xC9u,0xC2u,0xC7u,0xC2u,0xDFu,0xC2u,0xCEu,0xD8u,0x8Bu,0xCAu,0xC8u,0xDFu,0xC2u,0xDDu,0xCAu,0xDFu,0xCEu,0xCFu));case 6:_m05();return _ok(_D(25,0xEAu,0xC7u,0xC7u,0x8Bu,0xCAu,0xC9u,0xC2u,0xC7u,0xC2u,0xDFu,0xC2u,0xCEu,0xD8u,0x8Bu,0xCFu,0xCEu,0xCAu,0xC8u,0xDFu,0xC2u,0xDDu,0xCAu,0xDFu,0xCEu,0xCFu));
+case 7:_m06();return _ok(_D(21,0xFBu,0xCAu,0xDEu,0xD8u,0xCEu,0x8Bu,0xDCu,0xCEu,0xCAu,0xDBu,0xC4u,0xC5u,0xD8u,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));case 8:_m07();return _ok(_D(25,0xE2u,0xC5u,0xD8u,0xDFu,0xCAu,0xC5u,0xDFu,0x8Bu,0xC8u,0xC4u,0xC4u,0xC7u,0xCFu,0xC4u,0xDCu,0xC5u,0xD8u,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));
+case 9:_m08();return _ok(_D(15,0xFCu,0xCEu,0xCAu,0xDBu,0xC4u,0xC5u,0xD8u,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));case 10:_m09(_fp);return _ok(_D(15,0xFCu,0xCEu,0xCAu,0xDBu,0xC4u,0xC5u,0x8Bu,0xD9u,0xCAu,0xDFu,0xCEu,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 11:_m10(_fp);return _ok(_D(13,0xFCu,0xCEu,0xCAu,0xDBu,0xC4u,0xC5u,0x8Bu,0xE8u,0xEFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 12:_m11();return _ok(_D(19,0xEAu,0xC7u,0xC7u,0x8Bu,0xDCu,0xCEu,0xCAu,0xDBu,0xC4u,0xC5u,0xD8u,0x8Bu,0xCEu,0xC5u,0xCAu,0xC9u,0xC7u,0xCEu,0xCFu));
+case 13:_m12();return _ok(_D(20,0xEAu,0xC7u,0xC7u,0x8Bu,0xDCu,0xCEu,0xCAu,0xDBu,0xC4u,0xC5u,0xD8u,0x8Bu,0xCFu,0xC2u,0xD8u,0xCAu,0xC9u,0xC7u,0xCEu,0xCFu));case 14:_m13((double)_fp);return _ok(_D(19,0xEAu,0xC7u,0xC7u,0x8Bu,0xDFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xDCu,0xC4u,0xD9u,0xDFu,0xC3u,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 15:_m14((double)_fp);return _ok(_D(17,0xEAu,0xC7u,0xC7u,0x8Bu,0xDFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xCFu,0xC6u,0xCCu,0x8Bu,0xD8u,0xCEu,0xDFu));case 16:_m15();return _ok(_D(13,0xEFu,0xCAu,0xC6u,0xCAu,0xCCu,0xCEu,0xD8u,0x8Bu,0xD9u,0xCEu,0xD8u,0xCEu,0xDFu));
+case 17:_m16();return _ok(_D(13,0xECu,0xCEu,0xD9u,0xCAu,0xC7u,0xCFu,0xC4u,0x8Bu,0xC6u,0xCAu,0xD3u,0xCEu,0xCFu));case 18:_m17(_fp);return _ok(_D(18,0xEAu,0xC7u,0xC7u,0x8Bu,0xCAu,0xC9u,0xC2u,0xC7u,0xC2u,0xDFu,0xD2u,0x8Bu,0xE8u,0xEFu,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 19:_m18(_fp);return _ok(_D(22,0xEAu,0xC7u,0xC7u,0x8Bu,0xCAu,0xC9u,0xC2u,0xC7u,0xC2u,0xDFu,0xD2u,0x8Bu,0xC6u,0xCAu,0xD3u,0x8Bu,0xE8u,0xEFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 20:_m19();return _ok(_D(19,0xEAu,0xC7u,0xC7u,0x8Bu,0xCAu,0xC9u,0xC2u,0xC7u,0xC2u,0xDFu,0xC2u,0xCEu,0xD8u,0x8Bu,0xD9u,0xCEu,0xCAu,0xCFu,0xD2u));
+case 21:_m20((double)_fp);return _ok(_D(15,0xE8u,0xCAu,0xD8u,0xC3u,0x8Bu,0xCEu,0xCAu,0xD9u,0xC5u,0xCEu,0xCFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 22:_m21(_ip);return _ok(_D(9,0xE4u,0xDCu,0xC5u,0xCEu,0xD9u,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 23:_m22(_ip!=0);return _ok(_D(14,0xF8u,0xCEu,0xC7u,0xCEu,0xC8u,0xDFu,0xCAu,0xC9u,0xC7u,0xCEu,0x8Bu,0xD8u,0xCEu,0xDFu));case 24:_m23();return _ok(_D(18,0xEAu,0xC7u,0xC7u,0x8Bu,0xDFu,0xC4u,0xDCu,0xCEu,0xD9u,0xD8u,0x8Bu,0xCFu,0xCEu,0xC7u,0xCEu,0xDFu,0xCEu,0xCFu));
+case 25:_m24();return _ok(_D(17,0xE7u,0xC4u,0xC8u,0xC0u,0x8Bu,0xC3u,0xCEu,0xD9u,0xC4u,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));case 26:_m25();return _ok(_D(18,0xE7u,0xC4u,0xC8u,0xC0u,0x8Bu,0xDFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));
+case 27:_m26();return _ok(_D(20,0xEAu,0xDEu,0xDFu,0xC4u,0x8Bu,0xCAu,0xC9u,0xC2u,0xC7u,0xC2u,0xDFu,0xD2u,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));case 28:_m27();return _ok(_D(19,0xEDu,0xD9u,0xCEu,0xCEu,0x8Bu,0xDFu,0xC4u,0xDCu,0xCEu,0xD9u,0xD8u,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));
+case 29:_m28();return _ok(_D(21,0xEAu,0xC7u,0xC7u,0x8Bu,0xDCu,0xCEu,0xCAu,0xDBu,0xC4u,0xC5u,0x8Bu,0xE8u,0xEFu,0xD8u,0x8Bu,0xD1u,0xCEu,0xD9u,0xC4u,0xCEu,0xCFu));case 30:_m29();return _ok(_D(26,0xEAu,0xC9u,0xC2u,0xC7u,0xC2u,0xDFu,0xC2u,0xCEu,0xD8u,0x8Bu,0xC8u,0xC3u,0xCAu,0xC5u,0xCCu,0xCEu,0xCFu,0x8Bu,0xC5u,0xC4u,0xDFu,0xC2u,0xCDu,0xC2u,0xCEu,0xCFu));
+case 40:_m30(_ip);return _ok(_D(10,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xD8u,0xC4u,0xC7u,0xCFu));case 41:_m31(_ip,(double)_fp);return _ok(_D(15,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xDCu,0xC4u,0xD9u,0xDFu,0xC3u,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 42:_m32(_ip,(double)_fp);return _ok(_D(13,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xCFu,0xC6u,0xCCu,0x8Bu,0xD8u,0xCEu,0xDFu));case 43:_m33(_ip);return _ok(_D(16,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xE8u,0xEFu,0x8Bu,0xC8u,0xC7u,0xCEu,0xCAu,0xD9u,0xCEu,0xCFu));
+case 44:_m34(_ip);return _ok(_D(23,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xCAu,0xC9u,0xC2u,0xC7u,0xC2u,0xDFu,0xD2u,0x8Bu,0xCAu,0xC8u,0xDFu,0xC2u,0xDDu,0xCAu,0xDFu,0xCEu,0xCFu));case 45:_m35(_ip);return _ok(_D(22,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xDCu,0xCEu,0xCAu,0xDBu,0xC4u,0xC5u,0xD8u,0x8Bu,0xCFu,0xC2u,0xD8u,0xCAu,0xC9u,0xC7u,0xCEu,0xCFu));
+case 46:_m36(_ip);return _ok(_D(21,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xDCu,0xCEu,0xCAu,0xDBu,0xC4u,0xC5u,0xD8u,0x8Bu,0xCEu,0xC5u,0xCAu,0xC9u,0xC7u,0xCEu,0xCFu));case 47:_m37(_ip,_fp);return _ok(_D(21,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xDCu,0xCEu,0xCAu,0xDBu,0xC4u,0xC5u,0x8Bu,0xD9u,0xCAu,0xDFu,0xCEu,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 48:_m38(_ip,(int)_fp!=0);return _ok(_D(20,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xD8u,0xCEu,0xC7u,0xCEu,0xC8u,0xDFu,0xCAu,0xC9u,0xC7u,0xCEu,0x8Bu,0xD8u,0xCEu,0xDFu));case 49:_m39(_ip);return _ok(_D(15,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xCFu,0xCEu,0xD8u,0xDFu,0xD9u,0xC4u,0xD2u,0xCEu,0xCFu));
+case 50:return _ok(_fmtT(_ip).c_str());case 51:return _ok(_fmtTs(_ip).c_str());
+case 31:_m41(_ip);return _ok(_D(14,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xDEu,0xDBu,0xCCu,0xD9u,0xCAu,0xCFu,0xCEu,0xCFu));case 32:_m42(_ip,(double)_fp);return _ok(_D(16,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xC8u,0xCAu,0xD8u,0xC3u,0x8Bu,0xCAu,0xCFu,0xCFu,0xCEu,0xCFu));
+case 33:_m43(_ip,(int)_fp);return _ok(_D(16,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xDFu,0xCAu,0xD9u,0xCCu,0xCEu,0xDFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 34:_m44();return _ok(_D(17,0xEAu,0xC7u,0xC7u,0x8Bu,0xCFu,0xCAu,0xD9u,0xDFu,0xD8u,0x8Bu,0xD8u,0xDBu,0xCAu,0xDCu,0xC5u,0xCEu,0xCFu));
+case 35:_m45(_ip);return _ok(_D(16,0xFBu,0xCAu,0xD9u,0xCAu,0xCCu,0xC4u,0xC5u,0x8Bu,0xDEu,0xDBu,0xCCu,0xD9u,0xCAu,0xCFu,0xCEu,0xCFu));case 36:_m46(_ip);return _ok(_D(14,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xC6u,0xCCu,0xD9u,0x8Bu,0xD8u,0xC4u,0xC7u,0xCFu));
+case 37:_m47(_ip);return _ok(_D(19,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xC6u,0xCCu,0xD9u,0x8Bu,0xCFu,0xCEu,0xD8u,0xDFu,0xD9u,0xC4u,0xD2u,0xCEu,0xCFu));case 38:_m48(_ip);return _ok(_D(17,0xFFu,0xC4u,0xDCu,0xCEu,0xD9u,0x8Bu,0xD8u,0xC4u,0xC7u,0xCFu,0x8Bu,0xCFu,0xC2u,0xD9u,0xCEu,0xC8u,0xDFu));
+default:return _ok(_D(18,0xFEu,0xC5u,0xC0u,0xC5u,0xC4u,0xDCu,0xC5u,0x8Bu,0xC6u,0xC4u,0xC5u,0xC0u,0xCEu,0xD2u,0x8Bu,0xC8u,0xC6u,0xCFu));}}
+static ResponsePacket _hV(uint32_t _fn,int _ip,float _fp){switch(_fn){
+case 1:_v00((double)_ip);return _ok(_D(8,0xE8u,0xCAu,0xD8u,0xC3u,0x8Bu,0xD8u,0xCEu,0xDFu));case 2:_v01((double)_ip);return _ok(_D(10,0xE8u,0xCAu,0xD8u,0xC3u,0x8Bu,0xCAu,0xCFu,0xCFu,0xCEu,0xCFu));
+case 3:_v02();return _ok(_D(21,0xE2u,0xC5u,0xCDu,0xC2u,0xC5u,0xC2u,0xDFu,0xCEu,0x8Bu,0xC8u,0xCAu,0xD8u,0xC3u,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));case 4:_v03(_fp);return _ok(_D(10,0xE3u,0xCEu,0xCAu,0xC7u,0xDFu,0xC3u,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 5:_v04(_fp);return _ok(_D(17,0xE3u,0xCEu,0xCAu,0xC7u,0xDFu,0xC3u,0x8Bu,0xCFu,0xC2u,0xD9u,0xCEu,0xC8u,0xDFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 6:_v05();return _ok(_D(23,0xE2u,0xC5u,0xCDu,0xC2u,0xC5u,0xC2u,0xDFu,0xCEu,0x8Bu,0xC3u,0xCEu,0xCAu,0xC7u,0xDFu,0xC3u,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));
+case 7:_v06();return _ok(_D(12,0xE3u,0xCEu,0xCAu,0xC7u,0xDFu,0xC3u,0x8Bu,0xD9u,0xCEu,0xD8u,0xCEu,0xDFu));case 8:_v07();return _ok(_D(20,0xE2u,0xC5u,0xCDu,0xC2u,0xC5u,0xC2u,0xDFu,0xCEu,0x8Bu,0xC3u,0xCEu,0xCAu,0xC7u,0xDFu,0xC3u,0x8Bu,0xC6u,0xC4u,0xCFu,0xCEu));
+case 9:_v08(_fp);return _ok(_D(14,0xE6u,0xCAu,0xD3u,0x8Bu,0xC3u,0xCEu,0xCAu,0xC7u,0xDFu,0xC3u,0x8Bu,0xD8u,0xCEu,0xDFu));case 10:_v09(_fp);return _ok(_D(10,0xF8u,0xC3u,0xC2u,0xCEu,0xC7u,0xCFu,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 11:_v10(_ip);return _ok(_D(11,0xF9u,0xCEu,0xDDu,0xC2u,0xDDu,0xCEu,0xD8u,0x8Bu,0xD8u,0xCEu,0xDFu));case 12:_v11(_fp);return _ok(_D(12,0xEFu,0xCAu,0xC6u,0xCAu,0xCCu,0xCEu,0x8Bu,0xDFu,0xCAu,0xC0u,0xCEu,0xC5u));
+case 13:_v12();return _ok(_D(19,0xEFu,0xC4u,0xDEu,0xC9u,0xC7u,0xCEu,0x8Bu,0xC8u,0xCAu,0xD8u,0xC3u,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));case 14:_v13();return _ok(_D(21,0xE5u,0xC4u,0x8Bu,0xC7u,0xC2u,0xDDu,0xCEu,0xD8u,0x8Bu,0xC7u,0xC4u,0xD8u,0xDFu,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));
+case 15:_v14((double)_ip);return _ok(_D(14,0xE8u,0xCAu,0xD8u,0xC3u,0x8Bu,0xD8u,0xDBu,0xCEu,0xC5u,0xDFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 16:_v15(_ip!=0);return _ok(_D(21,0xE8u,0xCAu,0xD8u,0xC3u,0x8Bu,0xC8u,0xC3u,0xCAu,0xC5u,0xCCu,0xCEu,0xCFu,0x8Bu,0xCDu,0xC7u,0xCAu,0xCCu,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 17:_v16(_ip!=0);return _ok(_D(23,0xE3u,0xCEu,0xCAu,0xC7u,0xDFu,0xC3u,0x8Bu,0xC8u,0xC3u,0xCAu,0xC5u,0xCCu,0xCEu,0xCFu,0x8Bu,0xCDu,0xC7u,0xCAu,0xCCu,0x8Bu,0xD8u,0xCEu,0xDFu));case 18:_v17(_ip);return _ok(_D(18,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0x8Bu,0xC4u,0xDDu,0xCEu,0xD9u,0xD9u,0xC2u,0xCFu,0xCEu,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 19:_v18();return _ok(_D(16,0xECu,0xC4u,0xCFu,0x8Bu,0xC6u,0xC4u,0xCFu,0xCEu,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));case 20:_v19();return _ok(_D(21,0xEFu,0xCEu,0xC9u,0xDEu,0xCCu,0x8Bu,0xC4u,0xDBu,0xDFu,0xC2u,0xC4u,0xC5u,0xD8u,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));
+case 21:_v20(_ip);return _ok(_D(14,0xFFu,0xC2u,0xCEu,0xD9u,0x8Bu,0xC8u,0xC4u,0xDEu,0xC5u,0xDFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 22:_v21((double)_ip);return _ok(_D(12,0xE8u,0xCAu,0xD8u,0xC3u,0x8Bu,0xD9u,0xCEu,0xC6u,0xC4u,0xDDu,0xCEu,0xCFu));
+case 23:_v22((double)_ip);return _ok(_D(19,0xE8u,0xCAu,0xD8u,0xC3u,0x8Bu,0xCAu,0xCFu,0xCFu,0xCEu,0xCFu,0x8Bu,0x83u,0xC9u,0xD9u,0xC2u,0xCFu,0xCCu,0xCEu,0x82u));case 24:_v23((double)_ip);return _ok(_D(17,0xE8u,0xCAu,0xD8u,0xC3u,0x8Bu,0xD8u,0xCEu,0xDFu,0x8Bu,0x83u,0xC9u,0xD9u,0xC2u,0xCFu,0xCCu,0xCEu,0x82u));
+case 25:_v24(_ip);return _ok(_D(9,0xE8u,0xCAu,0xD8u,0xC3u,0x8Bu,0xD8u,0xCEu,0xC5u,0xDFu));case 26:_v25((double)_ip);return _ok(_D(17,0xF8u,0xC3u,0xCAu,0xD9u,0xCEu,0xCFu,0x8Bu,0xC8u,0xCAu,0xD8u,0xC3u,0x8Bu,0xCAu,0xCFu,0xCFu,0xCEu,0xCFu));
+case 27:_v26(_fp);return _ok(_D(16,0xE3u,0xCEu,0xCAu,0xC7u,0xDFu,0xC3u,0x8Bu,0xC8u,0xC3u,0xCEu,0xCAu,0xDFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 28:_v27(_fp);return _ok(_D(19,0xF8u,0xDFu,0xCAu,0xD9u,0xDFu,0xC2u,0xC5u,0xCCu,0x8Bu,0xC3u,0xCEu,0xCAu,0xC7u,0xDFu,0xC3u,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 29:_v28(_fp);return _ok(_D(15,0xF8u,0xC4u,0xCDu,0xDFu,0xC8u,0xCAu,0xDBu,0x8Bu,0xC6u,0xC4u,0xCFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 30:return _ok(_fmtSm().c_str());
+case 31:return _ok(_fmtIG().c_str());case 32:_v29(_fp);return _ok(_D(14,0xE6u,0xCAu,0xD3u,0x8Bu,0xD8u,0xC3u,0xC2u,0xCEu,0xC7u,0xCFu,0x8Bu,0xD8u,0xCEu,0xDFu));
+default:return _ok(_D(17,0xFEu,0xC5u,0xC0u,0xC5u,0xC4u,0xDCu,0xC5u,0x8Bu,0xDDu,0xCAu,0xC7u,0xDEu,0xCEu,0x8Bu,0xC8u,0xC6u,0xCFu));}}
+static ResponsePacket _hW(uint32_t _fn,int _ip,float _fp){switch(_fn){
+case 1:_w00();return _ok(_D(20,0xEAu,0xC7u,0xC7u,0x8Bu,0xC9u,0xC7u,0xC4u,0xC4u,0xC5u,0xD8u,0x8Bu,0xCFu,0xCEu,0xD8u,0xDFu,0xD9u,0xC4u,0xD2u,0xCEu,0xCFu));case 2:_w01();return _ok(_D(19,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0xD8u,0x8Bu,0xCFu,0xCEu,0xC7u,0xCEu,0xDFu,0xCEu,0xCFu,0x8Bu,0x83u,0xE2u,0xECu,0x82u));
+case 3:_w02();return _ok(_D(21,0xFBu,0xD9u,0xC4u,0xC1u,0xCEu,0xC8u,0xDFu,0xC2u,0xC7u,0xCEu,0xD8u,0x8Bu,0xCFu,0xCEu,0xD8u,0xDFu,0xD9u,0xC4u,0xD2u,0xCEu,0xCFu));case 4:_w03();return _ok(_D(14,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0xD8u,0x8Bu,0xC8u,0xC7u,0xCEu,0xCAu,0xD9u,0xCEu,0xCFu));
+case 5:_w04();return _ok(_D(19,0xF9u,0xC4u,0xDEu,0xC5u,0xCFu,0x8Bu,0xD8u,0xDFu,0xCAu,0xD9u,0xDFu,0xCEu,0xCFu,0x8Bu,0x83u,0xD8u,0xC2u,0xC6u,0x82u));case 6:_w05();return _ok(_D(22,0xF9u,0xC4u,0xDEu,0xC5u,0xCFu,0x8Bu,0xD8u,0xDFu,0xCAu,0xD9u,0xDFu,0xCEu,0xCFu,0x8Bu,0x83u,0xC9u,0xD9u,0xC2u,0xCFu,0xCCu,0xCEu,0x82u));
+case 7:_w06(_ip);return _ok(_D(9,0xF9u,0xC4u,0xDEu,0xC5u,0xCFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 8:_w07(_ip);return _ok(_D(13,0xEEu,0xC5u,0xCFu,0x8Bu,0xD9u,0xC4u,0xDEu,0xC5u,0xCFu,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 9:_w08();return _ok(_D(11,0xF9u,0xC4u,0xDEu,0xC5u,0xCFu,0x8Bu,0xD9u,0xCEu,0xD8u,0xCEu,0xDFu));case 10:_w09();return _ok(_D(17,0xEAu,0xDEu,0xDFu,0xC4u,0x8Bu,0xDBu,0xC7u,0xCAu,0xD2u,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));
+case 11:_w10();return _ok(_D(23,0xE9u,0xC7u,0xC4u,0xC8u,0xC0u,0x8Bu,0xCAu,0xDEu,0xDFu,0xC4u,0x8Bu,0xDBu,0xC7u,0xCAu,0xD2u,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));case 12:_w11();return _ok(_D(23,0xFBu,0xCAu,0xDEu,0xD8u,0xCEu,0x8Bu,0xCAu,0xDEu,0xDFu,0xC4u,0x8Bu,0xDBu,0xC7u,0xCAu,0xD2u,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));
+case 13:_w12();return _ok(_D(15,0xF8u,0xCAu,0xC5u,0xCFu,0xC9u,0xC4u,0xD3u,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));case 14:_w13();return _ok(_D(22,0xF8u,0xDBu,0xCAu,0xDCu,0xC5u,0xCEu,0xD9u,0x8Bu,0xCDu,0xD9u,0xCEu,0xCEu,0xD1u,0xCEu,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));
+case 15:_w14(_ip);return _ok(_D(17,0xF8u,0xDBu,0xCAu,0xDCu,0xC5u,0xCEu,0xD9u,0x8Bu,0xD9u,0xC4u,0xDEu,0xC5u,0xCFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 16:_w15(_fp);return _ok(_D(12,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0x8Bu,0xE3u,0xFBu,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 17:_w16(_fp);return _ok(_D(14,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0xD8u,0x8Bu,0xCFu,0xCAu,0xC6u,0xCAu,0xCCu,0xCEu,0xCFu));case 18:_w17();return _ok(_D(17,0xEAu,0xC7u,0xC7u,0x8Bu,0xC9u,0xC7u,0xC4u,0xC4u,0xC5u,0xD8u,0x8Bu,0xC0u,0xC2u,0xC7u,0xC7u,0xCEu,0xCFu));
+case 19:_w18(_fp);return _ok(_D(18,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0x8Bu,0xCFu,0xC2u,0xD8u,0xDFu,0xCAu,0xC5u,0xC8u,0xCEu,0x8Bu,0xD8u,0xCEu,0xDFu));case 20:_w19();return _ok(_D(14,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0xD8u,0x8Bu,0xCAu,0xDFu,0x8Bu,0xCEu,0xD3u,0xC2u,0xDFu));
+case 21:_w20(_ip);return _ok(_D(18,0xF9u,0xC4u,0xDEu,0xC5u,0xCFu,0x8Bu,0xC6u,0xDEu,0xDFu,0xCAu,0xDFu,0xC4u,0xD9u,0xD8u,0x8Bu,0xD8u,0xCEu,0xDFu));case 22:_w21();return _ok(_D(11,0xFDu,0xC2u,0xC8u,0xDFu,0xC4u,0xD9u,0xD2u,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 23:_w22();return _ok(_D(10,0xEFu,0xCEu,0xCDu,0xCEu,0xCAu,0xDFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 24:_w23();return _ok(_D(12,0xFCu,0xC2u,0xC5u,0x8Bu,0x83u,0xC9u,0xD9u,0xC2u,0xCFu,0xCCu,0xCEu,0x82u));
+case 25:_w24();return _ok(_D(9,0xF9u,0xCEu,0xD8u,0xDFu,0xCAu,0xD9u,0xDFu,0xCEu,0xCFu));case 26:_w25();return _ok(_D(15,0xFAu,0xDEu,0xC2u,0xC8u,0xC0u,0x8Bu,0xD9u,0xCEu,0xD8u,0xDFu,0xCAu,0xD9u,0xDFu,0xCEu,0xCFu));
+case 27:_w26();return _ok(_D(17,0xEDu,0xD9u,0xCEu,0xCEu,0x8Bu,0xDBu,0xC7u,0xCAu,0xD2u,0x8Bu,0xD8u,0xDFu,0xCAu,0xD9u,0xDFu,0xCEu,0xCFu));case 28:_w27();return _ok(_D(13,0xEDu,0xC4u,0xD9u,0xC8u,0xCEu,0xCFu,0x8Bu,0xCFu,0xCEu,0xCDu,0xCEu,0xCAu,0xDFu));
+case 29:_w28();return _ok(_D(9,0xE8u,0xC4u,0xC5u,0xDFu,0xC2u,0xC5u,0xDEu,0xCEu,0xCFu));case 30:_w29();return _ok(_D(13,0xE8u,0xC7u,0xC4u,0xC8u,0xC0u,0x8Bu,0xD8u,0xDFu,0xC4u,0xDBu,0xDBu,0xCEu,0xCFu));
+case 31:_w30();return _ok(_D(13,0xE8u,0xC7u,0xC4u,0xC8u,0xC0u,0x8Bu,0xD9u,0xCEu,0xD8u,0xDEu,0xC6u,0xCEu,0xCFu));case 32:_w31();return _ok(_D(20,0xEDu,0xCAu,0xD8u,0xDFu,0x8Bu,0xCDu,0xC4u,0xD9u,0xDCu,0xCAu,0xD9u,0xCFu,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));
+case 33:_w32(_ip);return _ok(_D(15,0xF9u,0xC4u,0xDEu,0xC5u,0xCFu,0x8Bu,0xC8u,0xC3u,0xCEu,0xCAu,0xDFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 34:_w33(_ip!=0);return _ok(_D(13,0xE6u,0xCAu,0xDFu,0xC8u,0xC3u,0x8Bu,0xDCu,0xC4u,0xC5u,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 35:_w34(_ip!=0);return _ok(_D(14,0xE6u,0xCAu,0xDFu,0xC8u,0xC3u,0x8Bu,0xC7u,0xC4u,0xD8u,0xDFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 36:_w35(_ip!=0);return _ok(_D(16,0xECu,0xCAu,0xC6u,0xCEu,0x8Bu,0xD8u,0xDFu,0xCAu,0xD9u,0xDFu,0xCEu,0xCFu,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 37:_w36(_ip!=0);return _ok(_D(13,0xECu,0xCAu,0xC6u,0xCEu,0x8Bu,0xC7u,0xC4u,0xD8u,0xDFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 38:_w37(_ip!=0);return _ok(_D(12,0xECu,0xCAu,0xC6u,0xCEu,0x8Bu,0xDCu,0xC4u,0xC5u,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 39:_w38();return _ok(_D(11,0xFAu,0xDEu,0xC2u,0xDFu,0x8Bu,0xC8u,0xCAu,0xC7u,0xC7u,0xCEu,0xCFu));case 40:_w39();return _ok(_D(15,0xF8u,0xDBu,0xCAu,0xDCu,0xC5u,0xCEu,0xD9u,0x8Bu,0xD8u,0xDFu,0xCAu,0xD9u,0xDFu,0xCEu,0xCFu));
+case 41:_w40(_ip);return _ok(_D(17,0xF8u,0xDBu,0xCAu,0xDCu,0xC5u,0xCEu,0xD9u,0x8Bu,0xD9u,0xC4u,0xDEu,0xC5u,0xCFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 42:_w41();return _ok(_D(17,0xE4u,0xC5u,0x8Bu,0xDDu,0xC2u,0xC8u,0xDFu,0xC4u,0xD9u,0xD2u,0x8Bu,0xC8u,0xCAu,0xC7u,0xC7u,0xCEu,0xCFu));
+case 43:_w42(_ip);return _ok(_D(16,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0x8Bu,0xC6u,0xCCu,0xD9u,0x8Bu,0xCFu,0xCAu,0xC6u,0xCAu,0xCCu,0xCEu));case 44:_w43(_ip);return _ok(_D(17,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0x8Bu,0xC6u,0xCCu,0xD9u,0x8Bu,0xCFu,0xCEu,0xD8u,0xDFu,0xD9u,0xC4u,0xD2u));
+case 45:_w44(_ip!=0);return _ok(_D(18,0xE6u,0xCAu,0xDFu,0xC8u,0xC3u,0x8Bu,0xC1u,0xDEu,0xD8u,0xDFu,0x8Bu,0xDCu,0xC4u,0xC5u,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 50:return _ok(_fmtBs(_ip).c_str());case 51:return _ok(_fmtOv().c_str());
+default:return _ok(_D(17,0xFEu,0xC5u,0xC0u,0xC5u,0xC4u,0xDCu,0xC5u,0x8Bu,0xDCu,0xC4u,0xD9u,0xC7u,0xCFu,0x8Bu,0xC8u,0xC6u,0xCFu));}}
+static ResponsePacket _hX(uint32_t _fn,int _ip,float _fp){switch(_fn){
+case 1:_x00();return _ok(_D(23,0xE2u,0xC5u,0xCDu,0xC2u,0xC5u,0xC2u,0xDFu,0xCEu,0x8Bu,0xDBu,0xC2u,0xCEu,0xD9u,0xC8u,0xCEu,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));case 2:_x01();return _ok(_D(18,0xE6u,0xCAu,0xD3u,0x8Bu,0xCFu,0xCAu,0xC6u,0xCAu,0xCCu,0xCEu,0x8Bu,0xDFu,0xC4u,0xCCu,0xCCu,0xC7u,0xCEu,0xCFu));
+case 3:_x02(_ip);return _ok(_D(15,0xF8u,0xC3u,0xC4u,0xDCu,0x8Bu,0xC8u,0xCAu,0xC5u,0xC8u,0xCEu,0xC7u,0x8Bu,0xD8u,0xCEu,0xDFu));case 4:_x03(_fp);return _ok(_D(18,0xEEu,0xC5u,0xCFu,0x8Bu,0xD9u,0xC4u,0xDEu,0xC5u,0xCFu,0x8Bu,0xDFu,0xC2u,0xC6u,0xCEu,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 5:_x04(_ip!=0);return _ok(_D(15,0xE8u,0xCAu,0xC5u,0x8Bu,0xCEu,0xCAu,0xD9u,0xC5u,0x8Bu,0xF3u,0xFBu,0x8Bu,0xD8u,0xCEu,0xDFu));case 6:_x05(_ip!=0);return _ok(_D(21,0xFBu,0xC7u,0xCAu,0xD2u,0x8Bu,0xC9u,0xDFu,0xC5u,0x8Bu,0xCFu,0xC2u,0xD8u,0xCAu,0xC9u,0xC7u,0xCEu,0xCFu,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 7:_x06(_ip!=0);return _ok(_D(22,0xE6u,0xCAu,0xDBu,0x8Bu,0xCEu,0xCFu,0xC2u,0xDFu,0xC4u,0xD9u,0x8Bu,0xD8u,0xCAu,0xC5u,0xCFu,0xC9u,0xC4u,0xD3u,0x8Bu,0xD8u,0xCEu,0xDFu));case 8:return _ok(_D(15,0xFBu,0xD9u,0xC4u,0xC8u,0xCEu,0xD8u,0xD8u,0x8Bu,0xCDu,0xC7u,0xDEu,0xD8u,0xC3u,0xCEu,0xCFu));
+case 9:{uintptr_t _sm=_g2();if(_sm)_w<bool>(_sm+Simulation::HasTakenLeakDamage,_ip!=0);return _ok(_D(20,0xE7u,0xCEu,0xCAu,0xC0u,0x8Bu,0xCFu,0xCAu,0xC6u,0xCAu,0xCCu,0xCEu,0x8Bu,0xCDu,0xC7u,0xCAu,0xCCu,0x8Bu,0xD8u,0xCEu,0xDFu));}
+case 10:_x07(_ip,_fp);return _ok(_D(12,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0x8Bu,0xE3u,0xFBu,0x8Bu,0xD8u,0xCEu,0xDFu));case 11:_x08(_ip);return _ok(_D(15,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0x8Bu,0xCFu,0xCEu,0xD8u,0xDFu,0xD9u,0xC4u,0xD2u,0xCEu,0xCFu));
+case 12:_x09(_ip,_fp);return _ok(_D(18,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0x8Bu,0xCFu,0xC2u,0xD8u,0xDFu,0xCAu,0xC5u,0xC8u,0xCEu,0x8Bu,0xD8u,0xCEu,0xDFu));case 13:_x10(_ip,_fp);return _ok(_D(19,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0x8Bu,0xCFu,0xCAu,0xC6u,0xCAu,0xCCu,0xCEu,0xCFu,0x8Bu,0x83u,0xF9u,0xFDu,0xEAu,0x82u));
+case 14:_x11(_ip);return _ok(_D(12,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0x8Bu,0xC7u,0xCEu,0xCAu,0xC0u,0xCEu,0xCFu));case 15:_x12(_ip);return _ok(_D(14,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0x8Bu,0xE3u,0xFBu,0x8Bu,0xD9u,0xCEu,0xD8u,0xCEu,0xDFu));
+case 16:_x13(_ip,_fp);return _ok(_D(18,0xE9u,0xC7u,0xC4u,0xC4u,0xC5u,0x8Bu,0xE3u,0xFBu,0x8Bu,0xD8u,0xCEu,0xDFu,0x8Bu,0x83u,0xF9u,0xFDu,0xEAu,0x82u));case 17:_x14(_ip);return _ok(_D(13,0xEFu,0xCAu,0xD9u,0xDFu,0xD8u,0x8Bu,0xD8u,0xDBu,0xCAu,0xDCu,0xC5u,0xCEu,0xCFu));
+case 18:_x15(_ip,(int)_fp!=0);return _ok(_D(18,0xFCu,0xCEu,0xCAu,0xDBu,0xC4u,0xC5u,0x8Bu,0xCEu,0xC5u,0xCAu,0xC9u,0xC7u,0xCEu,0xCFu,0x8Bu,0xD8u,0xCEu,0xDFu));case 19:_x16(_ip,_fp);return _ok(_D(20,0xEAu,0xC9u,0xC2u,0xC7u,0xC2u,0xDFu,0xD2u,0x8Bu,0xE8u,0xEFu,0x8Bu,0xD8u,0xCEu,0xDFu,0x8Bu,0x83u,0xF9u,0xFDu,0xEAu,0x82u));
+case 20:return _ok(_fmtB(_ip).c_str());case 21:return _ok(_fmtT(_ip).c_str());
+case 22:_x17(_ip);return _ok(_D(24,0xEAu,0xC9u,0xC2u,0xC7u,0xC2u,0xDFu,0xD2u,0x8Bu,0xE8u,0xEFu,0x8Bu,0xC8u,0xC7u,0xCEu,0xCAu,0xD9u,0xCEu,0xCFu,0x8Bu,0x83u,0xF9u,0xFDu,0xEAu,0x82u));case 23:_x18(_fp);return _ok(_D(23,0xE6u,0xCAu,0xD3u,0x8Bu,0xC3u,0xCEu,0xCAu,0xC7u,0xDFu,0xC3u,0x8Bu,0xC2u,0xC5u,0xC8u,0xD9u,0xCEu,0xCAu,0xD8u,0xCEu,0x8Bu,0xD8u,0xCEu,0xDFu));
+case 24:_x19(_ip);return _ok(_D(20,0xF8u,0xDFu,0xCAu,0xD9u,0xDFu,0xC2u,0xC5u,0xCCu,0x8Bu,0xD9u,0xCEu,0xDDu,0xC2u,0xDDu,0xCEu,0xD8u,0x8Bu,0xD8u,0xCEu,0xDFu));default:return _ok(_D(16,0xFEu,0xC5u,0xC0u,0xC5u,0xC4u,0xDCu,0xC5u,0x8Bu,0xC6u,0xC2u,0xD8u,0xC8u,0x8Bu,0xC8u,0xC6u,0xCFu));}}
+static ResponsePacket _ex(const CommandPacket& _cmd){switch((CommandTab)_cmd.tab){case TAB_MONKEY:return _hM(_cmd.function,_cmd.intParam,_cmd.floatParam);case TAB_VALUE:return _hV(_cmd.function,_cmd.intParam,_cmd.floatParam);case TAB_WORLD:return _hW(_cmd.function,_cmd.intParam,_cmd.floatParam);case TAB_MISC:return _hX(_cmd.function,_cmd.intParam,_cmd.floatParam);case TAB_SYSTEM:switch((SystemCmd)_cmd.function){case SYS_GET_STATE:return _ok("");case SYS_PING:return _ok(_D(4,0xDBu,0xC4u,0xC5u,0xCCu));case SYS_EXIT:return _ok(_D(3,0xC9u,0xD2u,0xCEu));default:return _ok(_D(11,0xFEu,0xC5u,0xC0u,0xC5u,0xC4u,0xDCu,0xC5u,0x8Bu,0xD8u,0xD2u,0xD8u));}default:return _ok(_D(11,0xFEu,0xC5u,0xC0u,0xC5u,0xC4u,0xDCu,0xC5u,0x8Bu,0xDFu,0xCAu,0xC9u));}}
+static std::atomic<bool> _gr{true};
+static void _ps(){while(_gr){HANDLE _hp=CreateNamedPipeW(PIPE_NAME,PIPE_ACCESS_DUPLEX,PIPE_TYPE_MESSAGE|PIPE_READMODE_MESSAGE|PIPE_WAIT,1,sizeof(ResponsePacket),sizeof(CommandPacket),0,nullptr);if(_hp==INVALID_HANDLE_VALUE){Sleep(1000);continue;}BOOL _cn=ConnectNamedPipe(_hp,nullptr)?TRUE:(GetLastError()==ERROR_PIPE_CONNECTED);if(_cn){while(_gr){CommandPacket _cmd={};DWORD _br=0;if(!ReadFile(_hp,&_cmd,sizeof(_cmd),&_br,nullptr)||_br!=sizeof(_cmd))break;if(_cmd.tab==TAB_SYSTEM&&_cmd.function==SYS_EXIT){auto _r=_ex(_cmd);DWORD _bw=0;WriteFile(_hp,&_r,sizeof(_r),&_bw,nullptr);FlushFileBuffers(_hp);break;}auto _r=_ex(_cmd);DWORD _bw=0;if(!WriteFile(_hp,&_r,sizeof(_r),&_bw,nullptr))break;FlushFileBuffers(_hp);}}DisconnectNamedPipe(_hp);CloseHandle(_hp);}}
+static void _ul(){while(true){Sleep(100);auto& _s=_gs0();uintptr_t _sm=_g2();if(!_sm)continue;if(_s._a0)((void(*)(void*,double,int,void*))(_B+RVA::Sim::SetCash))((void*)_sm,9999999.0,-1,nullptr);if(_s._a1)((void(*)(void*,float,bool,void*))(_B+RVA::Sim::SetHealth))((void*)_sm,99999.f,true,nullptr);if(_s._aE){((void(*)(void*,float,bool,void*))(_B+RVA::Sim::SetHealth))((void*)_sm,99999.f,true,nullptr);((void(*)(void*,float,void*))(_B+RVA::Sim::set_Shield))((void*)_sm,99999.f,nullptr);}if(_s._a2)_w<bool>(_sm+Simulation::InstantCooldowns,true);if(_s._a3)_w<bool>(_sm+Simulation::PauseWeapons,true);if(_s._a4)_w<bool>(_sm+Simulation::DebugOptions,true);if(_s._a6)_w<bool>(_sm+Simulation::AutoPlay,true);if(_s._a8)((void(*)(void*,double,int,void*))(_B+RVA::Sim::SetCash))((void*)_sm,9999999.0,-1,nullptr);if(_s._aB)_faa([](uintptr_t _a){if(_r<float>(_a+Ability::Cooldown)<=0&&_r<bool>(_a+Ability::CanActivate))((void(*)(void*,void*))(_B+RVA::AbilityR::Activate))((void*)_a,nullptr);});if(_s._aC){uintptr_t _sp=_g6();if(_sp)_w<bool>(_sp+SpawnerObj::IsPaused,true);}if(_s._aG)_w<bool>(_sm+Simulation::NoLivesLost,true);if(_s._aI)_faw([](uintptr_t _w0){_w<float>(_w0+Weapon::Rate,0.01f);});}}
+static DWORD WINAPI _mt(LPVOID _hM){int _w=0;while(!GetModuleHandleA(_D(16,0xECu,0xCAu,0xC6u,0xCEu,0xEAu,0xD8u,0xD8u,0xCEu,0xC6u,0xC9u,0xC7u,0xD2u,0x85u,0xCFu,0xC7u,0xC7u))){Sleep(500);if(++_w>60){FreeLibraryAndExitThread((HMODULE)_hM,0);return 0;}}Sleep(2000);if(!_gi0()){FreeLibraryAndExitThread((HMODULE)_hM,0);return 0;}std::thread(_ul).detach();_ps();FreeLibraryAndExitThread((HMODULE)_hM,0);return 0;}
+BOOL APIENTRY DllMain(HMODULE _hM,DWORD _r,LPVOID){if(_r==DLL_PROCESS_ATTACH){DisableThreadLibraryCalls(_hM);HANDLE _h=CreateThread(nullptr,0,_mt,_hM,0,nullptr);if(_h)CloseHandle(_h);}return TRUE;}
